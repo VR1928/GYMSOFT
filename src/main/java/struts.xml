@@ -1,0 +1,2610 @@
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.custom.i18n.resources" value="ApplicationResources" />
+	<constant name="struts.action.excludePattern" value="/hello*"></constant>
+	<constant name="struts.multipart.maxSize" value="800000000" />
+
+
+	<package name="default" extends="struts-default">
+
+
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+		<global-results>
+			<result name="login" type="tiles">sessionExpire</result>
+			<result name="error" type="tiles">apmerror</result>
+			<result name="expiryerror" type="tiles">expiryerror</result>
+		</global-results>
+
+		<action name="*Default" method="{1}"
+			class="com.apm.common.web.action.DefaultUserAction">
+			<result name="homepage" type="tiles">homepage</result>
+			<result name="gotodashboard" type="redirect">allUserNotAvailableSlot
+			</result>
+			<result name="gotoweekdashboard" type="redirect">NotAvailableSlot
+			</result>
+			<result name="abtus" type="tiles">abtus</result>
+			<result name="maindashboard" type="redirect">MainDashBoard</result>
+		</action>
+
+		<action name="*MainDashBoard" method="{1}"
+			class="com.apm.DiaryManagement.web.action.MainDashBoardAction">
+			<result name="success" type="tiles">maindashboard</result>
+			<result name="setting" type="tiles">changePasswordPage</result>
+			<result name="loginerror" type="tiles">loginerror</result>
+			<result name="discountapprove" type="tiles">discountapprove</result>
+		</action>
+
+		<action name="*Login" method="{1}"
+			class="com.apm.common.web.action.LoginAction">
+			<result name="input" type="tiles">inputlogin</result>
+			<result name="success" type="redirect">Default</result>
+			<result name="gotodashboard" type="redirect">Ad</result>
+			<!-- <result name="maindashboard" type="redirect">PayrollEmployee?status=1</result> -->
+			<result name="maindashboard" type="redirect">MainDashBoard</result>
+			<result name="gotoweekdashboard" type="redirect">NotAvailableSlot
+			</result>
+			<result name="pathlab" type="redirect">Investigation</result>
+			<result name="medicalstore" type="redirect">Prescription</result>
+			<result name="phstaff" type="redirect">Pharmacy</result>
+			<result name="noglobalaccess" type="tiles">noglobalaccess</result>
+
+			<result name="doctormob" type="redirect">calNotAvailableSlot?actionType=doctormob
+			</result>
+			<!-- <result name="lockscreen" type="tiles">lockscreenPage</result> -->
+		</action>
+
+		<action name="*Mob" method="{1}"
+			class="com.apm.common.web.action.MobLoginAction">
+			<result name="success" type="redirect">dayNotAvailableSlot</result>
+		</action>
+
+		<action name="*Share" method="{1}"
+			class="com.apm.common.web.action.ShareLoginAction">
+			<result name="success" type="redirect">linkEmr</result>
+		</action>
+
+		<action name="*Pureseva" method="{1}"
+			class="com.apm.common.web.action.PureSevaLoginAction">
+			<result name="success" type="redirect">calNotAvailableSlot?actionType=mob
+			</result>
+		</action>
+
+		<action name="*Logout" method="{1}"
+			class="com.apm.common.web.action.LogoutAction">
+			<result name="success" type="redirect">inputLogin</result>
+			<result name="esclogout" type="tiles">esclogout</result>
+		</action>
+
+		<action name="*Category" method="{1}"
+			class="com.apm.Appointment.web.action.CategoryAction">
+			<result name="success" type="tiles">categoryList</result>
+			<result name="input" type="tiles">addCategory</result>
+			<result name="save" type="redirect">Category</result>
+			<result name="edit" type="tiles">editCategory</result>
+			<result name="update" type="redirect">Category</result>
+			<result name="delete" type="redirect">Category</result>
+		</action>
+
+
+		<action name="*CheckCategoryName" method="{1}"
+			class="com.apm.Appointment.web.action.CheckCategoryNameAction">
+		</action>
+
+
+
+		<!-- Appointment Mapping -->
+
+		<action name="*Appointment" method="{1}"
+			class="com.apm.Appointment.web.action.AppointmentAction">
+			<result name="success" type="tiles">appointment</result>
+			<result name="save" type="redirectAction">Appointment</result>
+		</action>
+
+		<!-- Diary Management -->
+
+		<action name="*DiaryMangent" method="{1}"
+			class="com.apm.DiaryManagement.web.action.DiaryManagementAction">
+			<result name="success" type="tiles">diarymanagement</result>
+			<result name="nextprev" type="tiles">diarymanagement</result>
+			<result name="deld" type="redirect">DiaryMangent</result>
+			<result name="widgets" type="tiles">widgets</result>
+			<result name="mainsetting" type="tiles">mainsetting</result>
+			<result name="miswidget" type="tiles">miswidget</result>
+			<result name="rota" type="tiles">rotamanagement</result>
+			<result name="packages" type="tiles">packages</result>
+			<result name="dietary" type="tiles">dietary</result>
+			<result name="marketing" type="tiles">marketing</result>
+			<result name="letsTalk" type="tiles">letsTalk</result>
+			<result name="casuality" type="tiles">casuality</result>
+			<result name="newpatient" type="tiles">newpatient</result>
+			<result name="recording" type="tiles">recording</result>
+			<result name="tpadashboard" type="tiles">tpadashboard</result>
+			<result name="emergencylabel" type="tiles">emergencylabel</result>
+			<result name="printemergencylabel" type="tiles">printemergencylabel
+			</result>
+		</action>
+
+
+		<action name="*BookAppointmentAjax" method="{1}"
+			class="com.apm.DiaryManagement.web.action.BookAppointmentAjaxAction">
+			<result name="opd" type="redirect">allUserNotAvailableSlot</result>
+			<result name="ot" type="redirect">allUserNotAvailableSlot</result>
+			<result name="dsplay" type="redirect">calNotAvailableSlot?actionType=display
+			</result>
+			
+
+
+		</action>
+
+
+		<action name="*NotAvailableSlot" method="{1}"
+			class="com.apm.DiaryManagement.web.action.NotAvailableSlotAction">
+			<result name="success" type="tiles">notavailableslot</result>
+			<result name="save" type="tiles">notavailableslot</result>
+			<result name="allUser" type="tiles">allUserSlot</result>
+			<result name="block" type="tiles">block</result>
+			<result name="newAppoinment" type="tiles">newAppoinment</result>
+			<result name="searchClient" type="tiles">searchClient</result>
+			<result name="day" type="tiles">dayUsers</result>
+			<result name="printdashpoard" type="tiles">printdashpoard</result>
+			<result name="newopd" type="tiles">newopd</result>
+
+			<result name="todayallUser" type="redirect">allUserNotAvailableSlot
+			</result>
+			<result name="todayday" type="redirect">dayNotAvailableSlot</result>
+			<result name="todayweek" type="redirect">NotAvailableSlot</result>
+			<result name="mobweek" type="tiles">mobweek</result>
+			<result name="display" type="tiles">display</result>
+
+			<result name="staff" type="redirect">allUserNotAvailableSlot</result>
+			<result name="staffdb" type="tiles">staffdb</result>
+			<result name="opd" type="redirect">allUserNotAvailableSlot</result>
+			<result name="ot" type="redirect">allUserNotAvailableSlot</result>
+			<result name="otdb" type="tiles">otdb</result>
+
+
+			<result name="printstaffdashboard" type="tiles">printstaffdashboard
+			</result>
+			<result name="blankLetterHead" type="tiles">blankLetterHead</result>
+			<result name="mrd" type="tiles">mrdpage</result>
+			<result name="otnotes" type="tiles">otnotes</result>
+			<result name="printotnotes" type="tiles">printotnotes</result>
+			<result name="otimg" type="tiles">otimg</result>
+			<result name="blankLetterHeadprint" type="tiles">blankLetterHeadprint
+			</result>
+			<result name="editoptionalform" type="tiles">editoptionalform</result>
+			<result name="immunizationchart" type="tiles">immunizationchart
+			</result>
+			<result name="newimmunizationchart" type="tiles">newimmunizationchart
+			</result>
+			<result name="listtrainernote" type="tiles">listtrainernote
+			</result>
+		</action>
+
+
+		<action name="*Finder" method="{1}"
+			class="com.apm.DiaryManagement.web.action.FinderAction">
+			<result name="input" type="tiles">finderList</result>
+			<result name="success" type="tiles">finderList</result>
+		</action>
+
+		<action name="*Casualty" method="{1}"
+			class="com.apm.Registration.web.action.CasualtyAction">
+			<result name="input" type="tiles">addcasualty</result>
+			<result name="success" type="tiles">casualtylist</result>
+			<result name="save" type="redirect">Casualty</result>
+			<result name="edit" type="tiles">editcasualty</result>
+			<result name="editsave" type="redirect">Casualty</result>
+		</action>
+
+		<action name="*UserProfile" method="{1}"
+			class="com.apm.Registration.web.action.UserProfileAction">
+			<interceptor-ref name="token">
+				<param name="excludeMethods">input,jobtitle,execute,updatesave,edit,delete,addOtherJobTitle,back1,saveDetails,checkEmailIdExist,checkMobileNoExist,profilePractitioner,move,updateglobalaccessss,roleaccess,updatewidegetstatus,updateactiveinactive,updatewardid,updateindentlocations,updateuserindivisualstatus,updatemiswidegetstatus,updateuserwiseaccess</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="input" type="tiles">adduserprofile</result>
+			<result name="success" type="tiles">userprofilelist</result>
+			<result name="edit" type="tiles">edituserprofile</result>
+			<result name="updatesave" type="redirect">UserProfile</result>
+			<result name="save" type="redirect">UserProfile</result>
+			<result name="delete" type="redirect">UserProfile</result>
+			<result name="invalid.token" type="redirect">UserProfile</result>
+			<result name="practitionerProfile" type="tiles">practitionerProfile
+			</result>
+			<result name="adminuserprofile" type="redirect">ClinicRegistration
+			</result>
+			<result name="profile" type="redirect">profilePractitionerUserProfile
+			</result>
+
+			<result name="roleacccess" type="tiles">roleacccess
+			</result>
+		</action>
+
+
+		<action name="*ClinicRegistration" method="{1}"
+			class="com.apm.Registration.web.action.ClinicRegistrationAction">
+			<result name="input" type="tiles">inputclinic</result>
+			<result name="save" type="redirect">inputLogin</result>
+			<result name="success" type="tiles">registersuccess</result>
+			<result name="success" type="tiles">clinicregistration</result>
+			<result name="edit" type="tiles">editclinicregistration</result>
+
+			<result name="updatesave" type="redirect">ClinicRegistration</result>
+
+			<result name="delete" type="redirect">ClinicRegistration</result>
+			<result name="viewProfileOfClinic" type="tiles">viewProfileOfClinic
+			</result>
+			<result name="locationList" type="tiles">locationList</result>
+			<result name="viewLocation" type="tiles">viewLocationPreofile</result>
+			<result name="editClinicLocationPage" type="tiles">editClinicLocationPage
+			</result>
+			<result name="dnaCharge" type="tiles">dnaCharge</result>
+			<result name="addDnaCharge" type="tiles">addDnaCharge</result>
+			<result name="editDNA" type="tiles">editDNA</result>
+			<result name="log" type="redirect">ClinicRegistration</result>
+			<result name="admineditsave" type="redirect">ClinicRegistration</result>
+			<result name="editAdminClinic" type="tiles">editAdminClinic</result>
+			<result name="roleAccessSetting" type="tiles">roleAccessSetting
+			</result>
+			<result name="saverole" type="redirect">roleAccessSettingClinicRegistration
+			</result>
+			<result name="smscountdashboard" type="tiles">smscountdashboard</result>
+			<result name="hsaccess" type="tiles">hsaccess</result>
+			<result name="userwiseaccess" type="tiles">userwiseaccess</result>
+		</action>
+
+
+		<action name="*PracticeManager" method="{1}"
+			class="com.apm.Registration.web.action.PracticeManagerAction">
+			<result name="input" type="tiles">addpracticemanager</result>
+			<result name="success" type="tiles">practicemanagerlist</result>
+			<result name="edit" type="tiles">editpracticemanager</result>
+			<result name="editsave" type="redirect">PracticeManager</result>
+			<result name="save" type="redirect">PracticeManager</result>
+			<result name="delete" type="redirect">PracticeManager</result>
+		</action>
+
+
+		<action name="*CheckUserId" method="{1}"
+			class="com.apm.Appointment.web.action.CheckUserIdAction">
+		</action>
+
+		<!-- Client module -->
+
+		<action name="*Client" method="{1}"
+			class="com.apm.DiaryManagement.web.action.ClientAction">
+			<interceptor-ref name="token">
+				<param name="excludeMethods">execute,pureseva,otp,ciims,exist,gpdtails,selected,newsaved,whopay,gpdata,savegp,back,showList,manage,add,addManage,addPatient,edit,editPatient,update,delete,thirdPartyLog,setTypeNameDropDown,setTypeNameClntDropDown,setCompanyNameDropDown,setPopupTypeNameDropDown,updateThirdPartyDetails,addOtherOccupation,addOtherReference,search,searchPatient,searchParticularPatient,searchParticular,addThirdPartyDetails,savePatient,getFullName,changeStatusToActive,changeStatusToInActive,viewProfile,displayProfile,printProfile,saveNewPatient,checkMobileExist,checkEmailExist,saveNote,getNoteAndSet,updateNote,deleteNote,getPatientDetails,sortByPractitioner,setgp,addCompleteInfo,setgpList,showPatientList,move,setWhoWillPay,searchTemplatePatient,addOtherSourceOfIntro,addOtherCondition,getRecentlyAddedPatientDetails,getInfo,getage,setpatientname,printDeclaration,savedeclaration,editdeclarationformdetails,printdeclarationformdetails,updatedeclaration,headcircumferencechart,feedbackForm,savefeedback,seeallFeedbacks,printfeedbackOFPatient,getallpatientlistForfeedback,savetofollowup,followupdashboard,sendfollowupsms,getuhidnew,setFollowupsatus,sendfollowupsmsall</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="tiles">allPatientList</result>
+			<result name="addPage" type="tiles">addPage</result>
+			<result name="save" type="redirect">manageClient</result>
+			<result name="editClientPage" type="tiles">editClientPage</result>
+			<result name="updateClient" type="redirect">manageClient</result>
+			<result name="deletePatient" type="redirect">manageClient</result>
+			<!-- 19th march unnati -->
+			<result name="thirdPartyLog" type="tiles">thirdPartyLogPage</result>
+			<result name="updateThirdPartyDetails" type="tiles">updateThirdPartyDetailsPage
+			</result>
+			<result name="manage" type="tiles">managePage</result>
+			<result name="addPatient" type="tiles">addPatient</result>
+			<result name="editPatientPage" type="tiles">editPatientPage</result>
+			<result name="addManage" type="tiles">addManage</result>
+			<result name="invalid.token" type="redirect">manageClient</result>
+			<result name="viewProfileOfClient" type="tiles">viewProfileOfClient
+			</result><!-- Minakshi -->
+			<result name="printProfile" type="tiles">printProfileofClient</result>
+
+			<result name="addCompleteInfo" type="tiles">addCompleteInfo</result>
+			<result name="printdeclarationform" type="tiles">printdeclarationform
+			</result>
+			<result name="headcircumferencechart" type="tiles">headcircumferencechart
+			</result>
+
+			<result name="feedbackForm" type="tiles">feedbackForm</result>
+			<result name="savefeedback" type="redirect">feedbackFormClient</result>
+			<result name="seeallFeedbacks" type="tiles">seeallFeedbacks</result>
+			<result name="printfeedbackOFPatient" type="tiles">printfeedbackOFPatient
+			</result>
+			<result name="followupdashboard" type="tiles">followupdashboard
+			</result>
+			<result name="sendfollowupsmsall" type="redirect">followupdashboardClient
+			</result>
+
+		</action>
+
+
+		<!-- Appointment Type -->
+
+		<action name="*AppointmentType" method="{1}"
+			class="com.apm.Appointment.web.action.AppointmentTypeAction">
+			<interceptor-ref name="token">
+				<param name="excludeMethods">addnewrow,party,execute,add,tp,tpname,back,setFormData,edit,update,delete,additionalCharge,charge,additionalCharge1,
+					ledg,sveled,newledg,viewledrport,ahead,newahead,saveahead,ocrpts,tb,balancesheethorizontal,balancesheetvertical,profitlosshorizontal,profitlossvertical,setnoneditable,searchcreatecharge</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+
+			<result name="success" type="tiles">appointmentTypeList</result>
+			<result name="addAppointmentPage" type="tiles">addAppointmentTypePage
+			</result>
+			<result name="save" type="redirect">AppointmentType</result>
+			<result name="editPage" type="tiles">editAppointmentTypePage</result>
+			<result name="update" type="redirect">AppointmentType</result>
+			<result name="delete" type="redirect">AppointmentType</result>
+			<result name="invalid.token" type="redirect">AppointmentType</result>
+
+			<result name="ledger" type="tiles">ledger</result>
+			<result name="viewledrport" type="tiles">viewledrport</result>
+			<result name="ahead" type="tiles">ahead</result>
+			<result name="ocrpt" type="tiles">ocrpt</result>
+			<result name="updatecharges" type="redirect">AppointmentType</result>
+
+			<result name="tb" type="tiles">tb</result>
+			<result name="balancesheethorizontal" type="tiles">balancesheethorizontal
+			</result>
+			<result name="balancesheetvertical" type="tiles">balancesheetvertical
+			</result>
+			<result name="profitlosshorizontal" type="tiles">profitlosshorizontal
+			</result>
+			<result name="profitlossvertical" type="tiles">profitlossvertical
+			</result>
+
+		</action>
+
+
+		<action name="*CompleteApmt" method="{1}"
+			class="com.apm.DiaryManagement.web.action.CompleteAppointmentAction">
+			<result name="input" type="tiles">completeApmt</result>
+			<result name="cashDesk" type="tiles">cashDesk</result>
+			<result name="paynow" type="tiles">paynow</result>
+			<result name="invoice" type="tiles">createinvoice</result>
+			<result name="preview" type="tiles">completeApmtInvoicePreview
+			</result>
+			<result name="createClientCharge" type="tiles">createClientChargePage
+			</result>
+			<result name="pendingCharges" type="tiles">pendingChargesPage</result>
+
+
+		</action>
+
+		<action name="*CheckColor" method="{1}"
+			class="com.apm.Registration.web.action.CheckColorAction">
+		</action>
+
+		<action name="*CheckColorCodeApp" method="{1}"
+			class="com.apm.Appointment.web.action.CheckColorCodeAppAction">
+		</action>
+
+
+		<!-- Appointment Report -->
+		<action name="*ApmtDiaryReport" method="{1}"
+			class="com.apm.DiaryManagement.web.action.AppointmentDiaryReportAction">
+			<result name="success" type="tiles">apmtDiaryReportreport</result>
+			<result name="reportPreview" type="tiles">reportPreview</result>
+			<result name="walkInAndPreBooked" type="tiles">walkInAndPreBooked
+			</result>
+		</action>
+
+		<!-- Accounts -->
+		<action name="*Accounts" method="{1}"
+			class="com.apm.Accounts.web.action.AccountsAction">
+			<interceptor-ref name="token">
+				<param name="excludeMethods">input,execute,move,payment,raiseinvoice,raisesubmitinvoice,createinvoice,submitinvoice,invoice,preview,payby,transactions,showAllAssessment,delete,addmedicinebill</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="save" type="redirect">Accounts</result>
+			<result name="input" type="tiles">accounts</result>
+			<result name="success" type="tiles">accounts</result>
+			<result name="payment" type="tiles">payment</result>
+			<result name="invoice" type="tiles">invoice</result>
+			<result name="preview" type="tiles">preview</result>
+			<result name="pay" type="tiles">accounts</result>
+			<result name="raiseinvoice" type="tiles">raiseinvoice</result>
+			<result name="raisesubmitinvoice" type="tiles">raisesubmitinvoice
+			</result>
+			<result name="createinvoice" type="tiles">accounts</result>
+			<result name="submitinvoice" type="tiles">accounts</result>
+			<result name="invalid.token" type="redirect">Accounts</result>
+		</action>
+
+		<action name="*Charges" method="{1}"
+			class="com.apm.Accounts.web.action.ChargesAction">
+			<!-- <interceptor-ref name="token"> <param name="excludeMethods">raiseinvoice,createinvoice,casdesk,raisesubmitinvoice,temp</param> 
+				</interceptor-ref> <interceptor-ref name="defaultStack"></interceptor-ref> -->
+
+			<result name="chargesraiseinvoice" type="tiles">chargesraiseinvoice
+			</result>
+			<result name="createinvoicecharges" type="tiles">accounts</result>
+			<result name="raisesubmitinvoicecharges" type="tiles">raisesubmitinvoicecharges
+			</result>
+			<result name="submitinvoicecharges" type="redirect">previewCharges?action=show
+			</result>
+			<result name="showpreview" type="tiles">showpreview</result>
+			<result name="printpreview" type="tiles">printpreview</result>
+			<result name="cashdesk" type="tiles">cashdesk</result>
+			<result name="savecash" type="redirect">previewCharges?action=show
+			</result>
+			<result name="closecharges" type="tiles">showChargesAccountProcessingPage
+			</result>
+			<result name="invalid.token" type="redirect">moveProcessingAccount
+			</result>
+			<result name="showcredit" type="redirect">creditListAdditional</result>
+			<result name="careport" type="tiles">careport</result>
+			<result name="advprint" type="tiles">advprint</result>
+			<result name="estimate" type="tiles">estimate</result>
+			<result name="estimate" type="tiles">estimate</result>
+			<result name="errorcharge" type="tiles">errorcharge</result>
+			<result name="advrefundprint" type="tiles">advrefundprint</result>
+			<result name="printinvoicepayment" type="tiles">printinvoicepayment
+			</result>
+			<result name="billsummary" type="tiles">billsummary</result>
+			<result name="tpservices" type="tiles">tpservices</result>
+		</action>
+
+
+		<action name="*Statement" method="{1}"
+			class="com.apm.Accounts.web.action.StatementAction">
+			<result name="input" type="tiles">viewStatement</result>
+			<result name="success" type="tiles">viewStatement</result>
+			<result name="detailstatement" type="tiles">detailstatement</result>
+			<result name="chargeupdated" type="redirect">detailStatement</result>
+			<result name="chargeinvoice" type="tiles">chargeinvoice</result>
+			<result name="otdetails" type="tiles">otdetails</result>
+			<result name="updatedcharge" type="redirect">detailStatement</result>
+			<result name="prntchargedetail" type="tiles">prntchargedetail</result>
+			<result name="pnrntsubchargedetail" type="tiles">pnrntsubchargedetail
+			</result>
+			<result name="updateautocharge" type="redirect">Statement</result>
+			<result name="indvdiscount" type="tiles">indvdiscount</result>
+			<result name="indvdiscreq" type="redirect">indvdiscountStatement</result>
+			<result name="inddiscountdash" type="redirect">discountrequestdashboardProcessingAccount</result>
+		</action>
+
+		<!-- Third Party --> <!-- Unnati Module -->
+		<action name="*ThirdParty" method="{1}"
+			class="com.apm.ThirdParties.web.action.ThirdPartyAction">
+			<interceptor-ref name="token">
+				<param name="excludeMethods">execute,addDetail,add,showList,editDetail,updateDetails,deleteDetails,saveNew,back,saveNew1,save,checkEmailExist,checkMobileExist,saveNewTpAjax,search,getTPDetails,editTPDetailsNew,saveDoctorSurgeryAjax,editDoctorSurgery,updateDoctorSurgery,addcharges,getcharges,savecharges,getinvnames</param>
+
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="tiles">allThirdPartyPage</result>
+			<result name="addThirdPartyDetail" type="tiles">addThirdPartyDetailPage
+			</result>
+			<result name="showList" type="redirect">AppointmentType</result>
+			<result name="editThirdPartyDetail" type="tiles">editThirdPartyDetailPage
+			</result>
+			<result name="updateDetailsSucess" type="redirect">ThirdParty</result>
+			<result name="deleteSucess" type="redirect">ThirdParty</result>
+			<result name="saveDetails" type="tiles">sucessthirdpartyPAge</result>
+			<result name="invalid.token" type="redirect">backThirdParty</result>
+			<result name="addThirdPartyDetailData" type="tiles">addThirdPartyDetailDataPage
+			</result>
+			<result name="showDoctorSurgeryData" type="tiles">showDoctorSurgeryData
+			</result>
+			<result name="addcharges" type="tiles">addchargesTp</result>
+		</action>
+
+		<action name="*ThirdPartyType" method="{1}"
+			class="com.apm.ThirdParties.web.action.ThirdPartyTypeAction">
+			<interceptor-ref name="token">
+				<param name="excludeMethods">execute,setFormDataOfTypeList,back,add,edit,update,delete</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="typeList" type="tiles">typeList</result>
+			<result name="addType" type="tiles">addType</result>
+			<result name="saveType" type="redirect">ThirdPartyType</result>
+			<result name="editTypePage" type="tiles">editTypePage</result>
+			<result name="updateType" type="redirect">ThirdPartyType</result>
+			<result name="deleteType" type="redirect">ThirdPartyType</result>
+			<result name="saveDetails" type="tiles">sucessthirdpartyPAge</result>
+			<result name="invalid.token" type="redirect">backThirdPartyType</result>
+
+		</action>
+
+
+		<action name="*TreatmentEpisode" method="{1}"
+			class="com.apm.TreatmentEpisode.web.action.TreatmentEpisodeAction">
+			<result name="input" type="tiles">addtreatmentepisode</result>
+			<result name="showTreatmentEpisode" type="tiles">showTreatmentEpisode
+			</result>
+			<result name="editTreatmentEpisodePage" type="tiles">editTreatmentEpisodePage
+			</result>
+			<result name="addTreatmentPage" type="tiles">addTreatmentPage</result>
+			<result name="updateSave" type="redirect">showTreatmentEpisode</result>
+			<result name="deleteTreatmentEpisode" type="redirect">showTreatmentEpisode
+			</result>
+
+
+		</action>
+
+		<!-- mASTER --> <!-- Unnati Module -->
+
+
+
+		<action name="*NewChargeType" method="{1}"
+			class="com.apm.Master.web.action.CreateNewChargeTypeAction">
+			<result name="success" type="tiles">newChargeTypeList</result>
+			<result name="add" type="tiles">addNewChargeType</result>
+			<result name="save" type="redirect">NewChargeType</result>
+			<result name="edit" type="tiles">editNewChargeType</result>
+
+		</action>
+
+
+		<action name="*Occupation" method="{1}"
+			class="com.apm.Master.web.action.OccupationAction">
+			<interceptor-ref name="token">
+				<param name="excludeMethods">execute,setFormData,edit,update,delete,back,add</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="occupationPage" type="tiles">occupationPage</result>
+			<result name="addOccupationPage" type="tiles">addOccupationPage
+			</result>
+			<result name="save" type="redirect">Occupation</result>
+			<result name="editOccupationPage" type="tiles">editOccupationPage
+			</result>
+			<result name="updateOccupation" type="redirect">Occupation</result>
+			<result name="deleteOccupation" type="redirect">Occupation</result>
+			<result name="invalid.token" type="redirect">backOccupation</result>
+		</action>
+
+		<action name="*JobTitle" method="{1}"
+			class="com.apm.Master.web.action.JobTitleAction">
+			<interceptor-ref name="token">
+				<param name="excludeMethods">execute,setFormDataofJobTitle,edit,update,delete,back,add</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="jobTitlePage" type="tiles">jobTitlePage</result>
+			<result name="addJobTitlePage" type="tiles">addJobTitlePage</result>
+			<result name="saveJobTitleSucess" type="redirect">JobTitle</result>
+			<result name="editJobTitlePage" type="tiles">editJobTitlePage</result>
+			<result name="updateJobTitle" type="redirect">JobTitle</result>
+			<result name="deleteJobTitle" type="redirect">JobTitle</result>
+			<result name="invalid.token" type="redirect">backJobTitle</result>
+		</action>
+
+		<action name="*Reference" method="{1}"
+			class="com.apm.Master.web.action.ReferenceAction">
+			<interceptor-ref name="token">
+				<param name="excludeMethods">execute,setFormDataOfReference,edit,update,delete,back,add</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="referencePage" type="tiles">referencePage</result>
+			<result name="addReferencePage" type="tiles">addReferencePage</result>
+			<result name="saveReferenceSucess" type="redirect">Reference</result>
+			<result name="editReferencePage" type="tiles">editReferencePage
+			</result>
+			<result name="save" type="redirect">Reference</result>
+			<result name="deleteReference" type="redirect">Reference</result>
+			<result name="invalid.token" type="redirect">backReference</result>
+		</action>
+
+
+		<action name="*CheckApmtType" method="{1}"
+			class="com.apm.Appointment.web.action.CheckApmtTypeAction">
+		</action>
+
+		<action name="*ClientLog" method="{1}"
+			class="com.apm.Log.web.action.ClientLogAction">
+			<result name="clientLogPageSucess" type="tiles">clientLogPageSucess
+			</result>
+		</action>
+		<action name="*OutstandingReport" method="{1}"
+			class="com.apm.ThirdParties.web.action.OutstandingReportAction">
+			<result name="success" type="tiles">showOutstandingReportPage</result>
+			<result name="actionListPage" type="tiles">actionListPage</result>
+			<result name="showList" type="tiles">showOutstandingReportPage
+			</result>
+			<result name="createlist" type="tiles">outstandingInvoiceList</result>
+			<result name="gored" type="redirect">redOutstandingReport</result>
+			<result name="allocationlist" type="tiles">allocationlist</result>
+			<result name="savealt" type="redirect">allocationOutstandingReport
+			</result>
+			<result name="updatealt" type="redirect">allocationOutstandingReport
+			</result>
+			<result name="showaltlist" type="tiles">showaltlist</result>
+
+
+		</action>
+
+		<action name="*ProcessingAccount" method="{1}"
+			class="com.apm.Accounts.web.action.ChargeAccountProcessingAction">
+			<!-- <interceptor-ref name="token"> <param name="excludeMethods">updatesave,modify,execute,input,setFormData,move,showAllAssessment,showChildAssessment,transactions,showSubAssessment,payment</param> 
+				</interceptor-ref> <interceptor-ref name="defaultStack"></interceptor-ref> -->
+
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="showChargesProcessingPage" type="tiles">showChargesAccountProcessingPage
+			</result>
+			<result name="SUCCESS" type="tiles">showChargesAccountProcessingPage
+			</result>
+			<result name="payment" type="tiles">paymentProcessingPage</result>
+			<result name="pay" type="redirect">previewCharges?action=show</result>
+			<result name="createReport" type="tiles">createReport</result>
+			<result name="printstatement" type="tiles">printstatement</result>
+			<result name="invalid.token" type="redirect">moveProcessingAccount
+			</result>
+			<result name="printreport" type="tiles">printreport</result>
+			<result name="modifyinvoice" type="tiles">modifyinvoice</result>
+			<result name="updatesave" type="tiles">showChargesAccountProcessingPage
+			</result>
+			<result name="discountrequestdashboard" type="tiles">discountrequestdashboard
+			</result>
+
+			<result name="hosprevnue" type="tiles">hosprevnue</result>
+			<result name="reset" type="redirect">ProcessingAccount</result>
+		</action>
+		<action name="*MedicalRecord" method="{1}"
+			class="com.apm.Medical.Records.web.action.MedicalRecordAction">
+			<result name="allMedicalRecords" type="tiles">allMedicalRecords
+			</result>
+			<result name="input" type="tiles">addMedicalRecord</result>
+			<result name="editPage" type="tiles">editPageMedicalRecord</result>
+
+		</action>
+
+		<!--Medical Report Mapping -->
+		<action name="*PendingPaymentReports" method="{1}"
+			class="com.apm.Medical.Reports.web.action.PendingPaymentReportsAction">
+			<result name="success" type="tiles">PendingPaymentReports</result>
+			<result name="input" type="tiles">PendingPaymentReports</result>
+		</action>
+
+		<!-- Emr Mapping -->
+
+		<action name="*Emr" method="{1}" class="com.apm.Emr.web.action.EmrAction">
+			<result name="input" type="tiles">emrview</result>
+			<result name="success" type="tiles">emrview</result>
+			<result name="weekemr" type="tiles">notavailableslot</result>
+			<result name="emrDetailsPage" type="tiles">emrDetailsPage</result>
+			<result name="printconsnote" type="tiles">printconsnote</result>
+			<result name="printprisc" type="tiles">printprisc</result>
+			<result name="adddoc" type="redirect">getPatientRecordEmr</result>
+			<result name="listot" type="tiles">listot</result>
+			<result name="pacsreport" type="tiles">pacsreport</result>
+			<result name="mrd" type="redirect">Mrd</result>
+			<result name="EMRNEW" type="tiles">EMRNEW</result>
+			<result name="emrdocs" type="tiles">emrdocs</result>
+			<result name="viewDocs" type="redirect">emrdocsEmr</result>
+			<result name="newprintprisc" type="tiles">newprintprisc</result>
+			<result name="clinicalnotes" type="tiles">clinicalnotes</result>
+			
+		</action>
+
+		<!-- Emr Mapping -->
+
+		<action name="*Investigation" method="{1}"
+			class="com.apm.Emr.web.action.InvestigationAction">
+			<result name="success" type="tiles">viewinvestigation</result>
+			<result name="printinvestigation" type="tiles">printinvestigation
+			</result>
+			<result name="printinvsection" type="tiles">printinvsection</result>
+			<result name="pathlab" type="tiles">pathlab</result>
+			<result name="save" type="redirect">Investigation</result>
+			<result name="emrlink" type="redirect">ehislinkEmr</result>
+			<result name="template" type="tiles">template</result>
+			<result name="graph" type="tiles">invstgraph</result>
+			<result name="payment" type="tiles">paymentinvst</result>
+			<result name="printinvrequest" type="tiles">printinvrequest</result>
+			<result name="elabs" type="tiles">elabs</result>
+			<result name="graphreport" type="tiles">graphreport</result>
+			<result name="investigationtypewisereport" type="tiles">investigationtypewisereport
+			</result>
+			<result name="investigationtypewisereportnew" type="tiles">investigationtypewisereportnew
+			</result>
+			<result name="thirdpartysettings" type="tiles">thirdpartysettings
+			</result>
+			<result name="savetoinvst" type="redirect">thirdpartysettingsInvestigation
+			</result>
+			<result name="getinvesrevenueNcount" type="tiles">getinvesrevenueNcount
+			</result>
+			<result name="multiinvsthandle" type="tiles">multiinvsthandle</result>
+			<result name="savemultiinvstlist" type="redirect">Investigation</result>
+			<result name="printmultiinvestlist" type="tiles">printmultiinvestlist
+			</result>
+		</action>
+
+
+		<!-- Tools Mapping -->
+
+		<action name="*EmailTemplate" method="{1}"
+			class="com.apm.Tools.web.action.EmailTemplateAction">
+			<result name="emailTemplateList" type="tiles">templatePage</result>
+			<result name="addTemplatePage" type="tiles">addTemplatePage</result>
+			<result name="editEmailTemplatePage" type="tiles">editEmailTemplatePage
+			</result>
+			<result name="previewEmailTemplatePage" type="tiles">previewEmailTemplatePage
+			</result>
+			<result name="checkEmailSend" type="tiles">checkEmailSendPage</result>
+			<result name="addEmailConfigure" type="tiles">addEmailConfigurePage
+			</result>
+			<result name="editEmailConfigure" type="tiles">editEmailConfigurePage
+			</result>
+			<!-- <result name="changeEmailPwd" type="tiles">changeEmailPwdPage</result> -->
+
+		</action>
+
+
+
+		<action name="*TPReferal" method="{1}"
+			class="com.apm.Tools.web.action.TPReferalAction">
+			<result name="input" type="tiles">tpReferalPage</result>
+			<result name="success" type="tiles">tpReferalPage</result>
+			<result name="previewEmailTemplatePage" type="tiles">previewEmailTemplatePage
+			</result>
+			<result name="previewTPReferalPage" type="tiles">previewTPReferalPage
+			</result>
+		</action>
+
+		<!-- Cash Desk Mapping -->
+
+		<action name="*CashDesk" method="{1}"
+			class="com.apm.Accounts.web.action.CashDeskAction">
+			<result name="cashDeskList" type="tiles">cashDeskListPage</result>
+			<result name="addCashdeskPage" type="tiles">addCashdeskPage</result>
+			<result name="editCashDesk" type="tiles">editCashDesk</result>
+
+
+		</action>
+
+		<!-- Specialization Mapping -->
+
+		<action name="*Specialize" method="{1}"
+			class="com.apm.Master.web.action.SpecializationAction">
+			<result name="specializationList" type="tiles">specializationListPage
+			</result>
+			<result name="addSpecializationPage" type="tiles">addSpecializationPage
+			</result>
+			<result name="editSpecializationPage" type="tiles">editSpecializationPage
+			</result>
+		</action>
+
+
+
+		<!-- TreatmentType Mapping -->
+
+		<action name="*TreatmentType" method="{1}"
+			class="com.apm.Master.web.action.TreatmentTypeAction">
+			<result name="treatmentTypeList" type="tiles">treatmentTypeListPage
+			</result>
+			<result name="addTreatmentType" type="tiles">addTreatmentType</result>
+			<result name="editTreatmentType" type="tiles">editTreatmentType
+			</result>
+		</action>
+
+
+
+		<!-- SourceOfIntro Mapping -->
+
+		<action name="*SourceOfIntro" method="{1}"
+			class="com.apm.Master.web.action.SourceOfIntroAction">
+			<result name="sourceOfIntroList" type="tiles">sourceOfIntroListPage
+			</result>
+			<result name="addSourceOfIntro" type="tiles">addSourceOfIntro</result>
+			<result name="editSourceOfIntro" type="tiles">editSourceOfIntro
+			</result>
+		</action>
+
+		<!-- GP Mapping -->
+
+		<action name="*GP" method="{1}"
+			class="com.apm.ThirdParties.web.action.GPAction">
+			<result name="gpList" type="tiles">gpListPage</result>
+			<result name="addGP" type="tiles">addGP</result>
+			<result name="editGP" type="tiles">editGP</result>
+		</action>
+
+		<!-- Commission Mapping -->
+		<action name="*Commission" method="{1}"
+			class="com.apm.Report.web.action.CommissionAction">
+			<result name="prctcmsnrept" type="tiles">prctcmsnrept</result>
+			<result name="success" type="tiles">commissionPage</result>
+			<result name="opdpractshare" type="tiles">opdpractshare</result>
+		</action>
+
+		<action name="*DailyReport" method="{1}"
+			class="com.apm.Report.web.action.DailyReportAction">
+			<result name="rptoutstanding" type="tiles">rptoutstanding</result>
+			<result name="newpts" type="tiles">newpts</result>
+			<result name="dnaotsreport" type="tiles">dnaotsreport</result>
+			<result name="totalptsseen" type="tiles">totalptsseen</result>
+		</action>
+
+		<!-- Start of Instant messaging -->
+
+		<action name="*InstantMsg" method="{1}"
+			class="com.apm.InstantMessage.web.action.InstantMsgAction">
+			<result name="allMailsSucess" type="tiles">allMailsSucess</result>
+			<result name="printLetter" type="tiles">printLetterPage</result>
+			<result name="tpadashboard" type="redirect">Tpa</result>
+		</action>
+		<!-- End of Instant messaging -->
+
+		<!-- Start of Declaration -->
+
+		<action name="*Declaration" method="{1}"
+			class="com.apm.Master.web.action.DeclarationAction">
+			<interceptor-ref name="token">
+				<param name="excludeMethods">execute,dec,add,back,setFormDataofDeclaration,edit,update,delete</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="declarationList" type="tiles">declarationListPage
+			</result>
+			<result name="addDeclarationPage" type="tiles">addDeclarationPage
+			</result>
+			<result name="editDeclarationPage" type="tiles">editDeclarationPage
+			</result>
+			<result name="invalid.token" type="redirect">backDeclaration</result>
+
+
+
+
+		</action>
+		<!-- End of Declaration -->
+
+		<!-- Start of Reset Password -->
+		<action name="*ResetPassword" method="{1}"
+			class="com.apm.common.web.action.ResetPasswordAction">
+			<result name="forgotPassword" type="tiles">forgotPasswordPage</result>
+			<result name="linkSendSucess" type="tiles">linkSendSucess</result>
+			<result name="resetPasswordPage" type="tiles">resetPasswordPage
+			</result>
+			<result name="modifiedSucess" type="tiles">modifiedSucess</result>
+			<result name="changePasswordPage" type="tiles">changePasswordPage
+			</result>
+			<result name="changePaswdSucess" type="tiles">changePaswdSucess
+			</result>
+			<result name="logoutuser" type="redirect">Logout
+			</result>
+		</action>
+		<!-- End of Reset Password -->
+
+		<action name="*Report" method="{1}"
+			class="com.apm.Report.web.action.ReportAction">
+			<result name="reportsuccess" type="tiles">reportsuccess</result>
+			<result name="stockvaluation" type="tiles">stockvaluation</result>
+			<result name="departmentwiserevenue" type="tiles">departmentwiserevenue
+			</result>
+			<result name="departmaterialissue" type="tiles">departmaterialissue
+			</result>
+			<result name="departmaterialsummary" type="tiles">departmaterialsummary
+			</result>
+			<result name="nonmovingitem" type="tiles">nonmovingitem</result>
+			<result name="payableaging" type="tiles">payableaging</result>
+			<result name="stockreport" type="tiles">stockreport</result>
+			<result name="usermaterialissue" type="tiles">usermaterialissue
+			</result>
+			<result name="investoutsource" type="tiles">investoutsource</result>
+			<result name="itemwisepurchase" type="tiles">itemwisepurchase</result>
+			<result name="pharmacycreditrpt" type="tiles">pharmacycreditrpt
+			</result>
+			<result name="adjustmentreport" type="tiles">adjustmentreport</result>
+			<result name="opdtatreport" type="tiles">opdtatreport</result>
+			<result name="investigationtat" type="tiles">investigationtat</result>
+			<result name="otreport" type="tiles">otreport</result>
+			<result name="revenuematrix" type="tiles">revenuematrix</result>
+			<result name="nosofadmdisc" type="tiles">nosofadmdisc</result>
+		</action>
+		<action name="*ClientRpt" method="{1}"
+			class="com.apm.Report.web.action.ClientReportAction">
+			<result name="clientListSuccess" type="tiles">clientListSuccess
+			</result>
+			<result name="noActivityApptRecord" type="tiles">noActivityApptRecordPage
+			</result>
+			<result name="dnaNoFurureApp" type="tiles">dnaNoFurureAppPage</result>
+			<result name="currentTreatmentNoFutureApmts" type="tiles">currentTreatmentNoFutureApmts
+			</result>
+			<result name="noActivityClientRecord" type="tiles">noActivityClientRecordPage
+			</result>
+
+		</action>
+		<action name="*ChargesRpt" method="{1}"
+			class="com.apm.Report.web.action.ChargesReportAction">
+			<result name="chargeReportSucess" type="tiles">chargeReportSucess
+			</result>
+			<result name="invoiceReportSucess" type="tiles">invoiceReportSucess
+			</result>
+			<result name="paymentReportSucess" type="tiles">paymentReportSucess
+			</result>
+			<result name="previewChargesReport" type="tiles">previewChargesReport
+			</result>
+			<result name="auditor" type="tiles">auditorreport
+			</result>
+			<result name="userwisepayment" type="tiles">userwisepayment
+			</result>
+			<result name="paymentReportSmall" type="tiles">paymentReportSmall
+			</result>
+			<result name="paymentforallusers" type="tiles">paymentforallusers
+			</result>
+			<result name="opdreport" type="tiles">opdreport</result>
+			<result name="newDetailed" type="tiles">newDetailed</result>
+			<result name="paymentreceivedreport" type="tiles">paymentreceivedreport
+			</result>
+			<result name="district" type="tiles">district</result>
+			<result name="paymentreportNotesdash" type="tiles">paymentreportNotesdash</result>
+			<result name="payment_report_combinned" type="tiles">payment_report_combinned</result>
+		
+		</action>
+
+		<!-- Summary Report Mapping -->
+
+		<action name="*Summary" method="{1}"
+			class="com.apm.Report.web.action.SummaryReportAction">
+			<result name="success" type="tiles">DNAsuccess</result>
+			<result name="input" type="tiles">AppKeptDNA</result>
+			<result name="referalTreatment" type="tiles">referalTreatment</result>
+			<result name="returningpts" type="tiles">returningpts</result>
+			<result name="odreport" type="tiles">odreport</result>
+			<result name="ipddailyreport" type="tiles">ipddailyreport</result>
+			<result name="refundreport" type="tiles">refundreport</result>
+			<result name="ipdBillRegister" type="tiles">ipdBillRegister</result>
+			<result name="serviceRegisterDetails" type="tiles">serviceRegisterDetails
+			</result>
+			<result name="departmentWiseAnalysisReport" type="tiles">departmentWiseAnalysisReport
+			</result>
+			<result name="chargesharereport" type="tiles">chargesharereport
+			</result>
+			<result name="billingreport" type="tiles">billingreport</result>
+			<result name="discountreport" type="tiles">discountreport</result>
+			<result name="cancelinvoicereport" type="tiles">cancelinvoicereport
+			</result>
+			<result name="ipdmonthlyreport" type="tiles">ipdmonthlyreport</result>
+			<result name="ipddailyadddis" type="tiles">ipddailyadddis</result>
+			<result name="newpaymentreport" type="tiles">newpaymentreport</result>
+			<result name="currentpatients" type="tiles">currentpatients</result>
+			<result name="deathreport" type="tiles">deathreport</result>
+			<result name="userwisepaymentreport" type="tiles">userwisepaymentreport
+			</result>
+			<result name="bedoccupancyreport" type="tiles">bedoccupancyreport
+			</result>
+			<result name="mlcreport" type="tiles">mlcreport</result>
+			<result name="refferedreport" type="tiles">refferedreport</result>
+			<result name="showpatientsreport" type="tiles">showpatientsreport
+			</result>
+			<result name="opdipdconversionrevenue" type="tiles">opdipdconversionrevenue
+			</result>
+			<result name="deptwiseavgcount" type="tiles">deptwiseavgcount</result>
+			<result name="Labreport" type="tiles">Labreport</result>
+			<result name="investigationCount" type="tiles">investigationCount
+			</result>
+			<result name="newIpdCurrentPatient" type="tiles">newIpdCurrentPatient
+			</result>
+			<result name="newchargesharereport" type="tiles">newchargesharereport
+			</result>
+			<result name="invstpackagerpt" type="tiles">invstpackagerpt</result>
+			<result name="newstockreport1" type="tiles">newstockreport1</result>
+			<result name="practshareopdnew" type="tiles">practshareopdnew</result>
+			<result name="wardwiseavgstay" type="tiles">wardwiseavgstay</result>
+			<result name="totalrevenue" type="tiles">totalrevenue</result>
+			<result name="ipdpatienttpreport" type="tiles">ipdpatienttpreport
+			</result>
+			<result name="tppackagereport" type="tiles">tppackagereport</result>
+			<result name="ipdopdrevenueinvstrevnue" type="tiles">ipdopdrevenueinvstrevnue
+			</result>
+			<result name="paymentreciptreport" type="tiles">paymentreciptreport
+			</result>
+			<result name="wardwiserevenuerept" type="tiles">wardwiserevenuerept
+			</result>
+			<result name="nelsontotalrevenue" type="tiles">nelsontotalrevenue
+			</result>
+			<result name="deptwise_ot" type="tiles">deptwise_ot
+			</result>
+			<result name="invstabsvalreport" type="tiles">invstabsvalreport</result>
+		</action>
+
+
+
+		<!-- TreatmentEpisode Report Mapping -->
+
+		<action name="*Clinical" method="{1}"
+			class="com.apm.Report.web.action.ClinicalReportAction">
+			<result name="treatmentEpisodeList" type="tiles">treatmentEpisodeListPage
+			</result>
+			<result name="dtrreportform" type="tiles">dtrreportform
+			</result>
+		</action>
+
+		<!-- Assessment Form Mapping -->
+
+		<action name="*AssesmentForms" method="{1}"
+			class="com.apm.AssesmentForms.web.action.AssessmentFormsAction">
+			<result name="createNewAssessmentForm" type="tiles">createNewAssessmentForm
+			</result>
+			<result name="addTemplateDetails" type="tiles">addTemplateDetailsPage
+			</result>
+			<result name="addtemplatesuccess" type="tiles">addtemplatesuccess
+			</result>
+			<result name="assesmentsavedsuccess" type="redirect">getPatientRecordEmr
+			</result>
+			<result name="modifyNewAssessmentForm" type="tiles">modifyNewAssessmentForm
+			</result>
+			<result name="showtemplate" type="tiles">showtemplate</result>
+			<result name="addMrdTemplateDetails" type="tiles">addMrdTemplateDetailsPage
+			</result>
+			<result name="assesmentsavedsuccessForMrd" type="redirect">Mrd
+			</result>
+
+			<result name="addcombineformdetails" type="tiles">addcombineformdetails
+			</result>
+
+
+
+		</action>
+
+		<action name="*AssesmentMasterForms" method="{1}"
+			class="com.apm.AssesmentForms.web.action.AssessmentMasterAction">
+			<result name="success" type="tiles">assessmentMasterList</result>
+			<result name="addAssessment" type="tiles">addAssessmentPage</result>
+			<result name="editAssessment" type="tiles">editAssessmentPage</result>
+			<result name="headingList" type="tiles">headingListPage</result>
+			<result name="addsubHeadingAssessment" type="tiles">addsubHeadingAssessmentPage
+			</result>
+			<result name="editSubHeadingAssessment" type="tiles">editSubHeadingAssessmentPage
+			</result>
+
+		</action>
+
+		<action name="*AssessmentTemplate" method="{1}"
+			class="com.apm.AssesmentForms.web.action.Predefine.AssessmentTemplateAction">
+			<result name="assessmentTemplate" type="tiles">assessmentTemplatePage
+			</result>
+			<result name="assesmentsavedsuccess" type="redirect">setListDetailsListAssessmentForm
+			</result>
+			<result name="editPhysioTemplate" type="tiles">editPhysioTemplatePage
+			</result>
+			<result name="viewListPage" type="tiles">viewListPage</result>
+		</action>
+
+		<action name="*Editor" method="{1}"
+			class="com.apm.AssesmentForms.web.action.EditorAction">
+			<result name="viewEditorPage" type="tiles">viewEditorPage</result>
+		</action>
+
+		<action name="*ListAssessmentForm" method="{1}"
+			class="com.apm.AssesmentForms.web.action.ListAssessmentFormAction">
+			<result name="viewListPage" type="tiles">viewListPage</result>
+			<result name="editAssementPageOfClient" type="tiles">editAssementPageOfClient
+			</result>
+			<result name="printAssementPageOfClient" type="tiles">printAssementPageOfClient
+			</result>
+			<result name="updateListPage" type="redirect">getPatientRecordEmr
+			</result>
+			<result name="noassesmentformmsg" type="tiles">addtemplatesuccess
+			</result>
+			<result name="dtr" type="tiles">dtr</result>
+
+			<result name="editcombineformdetails" type="tiles">editcombineformdetails
+			</result>
+
+			<result name="printcombineformdetails" type="tiles">printcombineformdetails
+			</result>
+
+
+
+
+		</action>
+		<action name="*ImportImageForAssessment" method="{1}"
+			class="com.apm.AssesmentForms.web.action.ImportImageForAssessmentAction">
+			<result name="viewImagesListPage" type="tiles">viewImagesListPage
+			</result>
+			<result name="addImagePage" type="tiles">addImagePage</result>
+			<result name="addPageSucess" type="redirect">ImportImageForAssessment
+			</result>
+		</action>
+
+
+		<action name="*ConsultationNote" method="{1}"
+			class="com.apm.Emr.web.action.ConsultationNoteAction">
+			<result name="consultationNoteSucess" type="tiles">consultationNoteSucess
+			</result>
+
+		</action>
+		<action name="*Additional" method="{1}"
+			class="com.apm.Accounts.web.action.AdditionalChargesAction">
+			<result name="inputSucess" type="tiles">inputSucess</result>
+			<result name="raiseChargePage" type="redirect">Statement</result>
+			<result name="cashdesk" type="tiles">cashdesk</result>
+			<result name="createInvoice" type="redirect">raisesubmitinvoiceCharges
+			</result>
+			<result name="creditlist" type="tiles">creditlist</result>
+			<result name="debitcharge" type="tiles">debitcharge</result>
+			<result name="otdebitcharge" type="tiles">otdebitcharge</result>
+			<result name="creditcharge" type="tiles">creditcharge</result>
+			<result name="refundrequestdashboard" type="tiles">refundrequestdashboard
+			</result>
+			<result name="clientrefundrequest" type="tiles">clientrefundrequest
+			</result>
+			<result name="refundactiondash" type="redirect">refundrequestdashboardAdditional
+			</result>
+		</action>
+
+		<action name="*AccountLog" method="{1}"
+			class="com.apm.Log.web.action.AccountLogAction">
+
+		</action>
+
+		<action name="*EmailLetterLog" method="{1}"
+			class="com.apm.Log.web.action.EmailLetterLogAction"></action>
+
+		<action name="*Mis" method="{1}"
+			class="com.apm.Report.web.action.MisReportAction">
+			<result name="input" type="tiles">misreport</result>
+			<result name="success" type="tiles">misreport</result>
+		</action>
+
+		<action name="Ad"
+			class="com.apm.DiaryManagement.web.action.AdvanceEmailSendAction">
+			<interceptor-ref name="execAndWait">
+				<param name="delay">100</param>
+				<param name="delaySleepInterval">500</param>
+			</interceptor-ref>
+			<result name="wait" type="redirect">MainDashBoard</result>
+		</action>
+
+
+		<action name="*Discipline" method="{1}"
+			class="com.apm.Master.web.action.DiscplineAction">
+			<interceptor-ref name="token">
+				<param name="excludeMethods">execute,edit,update,delete,back,add,setformdata,input</param>
+			</interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+			<result name="success" type="tiles">discplineList</result>
+			<result name="input" type="tiles">addDiscplineList</result>
+			<result name="save" type="redirect">Discipline</result>
+			<result name="edit" type="tiles">editDiscplineList</result>
+			<result name="editsave" type="redirect">Discipline</result>
+			<result name="delete" type="redirect">Discipline</result>
+			<result name="invalid.token" type="redirect">Discipline</result>
+		</action>
+
+		<action name="*NotAvailableReason" method="{1}"
+			class="com.apm.Master.web.action.NotAvailableReasonAction">
+			<result name="success" type="tiles">setNonAvailabilityReason</result>
+			<result name="add" type="tiles">addNotAvailabilityReason</result>
+			<result name="save" type="redirect">NotAvailableReason</result>
+			<result name="edit" type="tiles">editNotAvailableReason</result>
+		</action>
+
+		<action name="*DischargeOutcome" method="{1}"
+			class="com.apm.Master.web.action.DischargeOutcomeAction">
+			<result name="success" type="tiles">dischargeOutcomePage</result>
+			<result name="add" type="tiles">addDischargeOutcomePage</result>
+			<result name="save" type="redirect">DischargeOutcome</result>
+			<result name="edit" type="tiles">editDischargeOutcomePage</result>
+		</action>
+
+		<action name="*DischargeStatus" method="{1}"
+			class="com.apm.Master.web.action.DischargeStatusAction">
+			<result name="success" type="tiles">dischargeStatusPage</result>
+			<result name="add" type="tiles">addDischargeStatusPage</result>
+			<result name="save" type="redirect">DischargeStatus</result>
+			<result name="edit" type="tiles">editDischargeStatusPage</result>
+		</action>
+
+		<action name="*SMSTemplate" method="{1}"
+			class="com.apm.Tools.web.action.SMSTemplateAction">
+			<result name="success" type="tiles">smsTemplateListpage</result>
+			<result name="add" type="tiles">addSMSTemplatepage</result>
+			<result name="save" type="redirect">SMSTemplate</result>
+			<result name="edit" type="tiles">editSMSTemplatePage</result>
+		</action>
+
+		<action name="*Notification" method="{1}"
+			class="com.apm.Master.web.action.NotificationAction">
+			<result name="success" type="tiles">notification</result>
+			<result name="input" type="tiles">inputnotification</result>
+		</action>
+
+		<!-- IPD Mapping -->
+
+		<action name="*Ipd" method="{1}" class="com.apm.Ipd.web.action.IpdAction">
+			<result name="input" type="tiles">addIpdform</result>
+			<result name="save" type="redirect">IpdDashboard?action=0</result>
+			<result name="edit" type="tiles">editIpdform</result>
+			<result name="printForm" type="tiles">printIpdForm</result>
+			<result name="discharge" type="tiles">dischargeform</result>
+			<result name="savedischarge" type="redirect">printdischargeIpd</result>
+			<result name="printdischarge" type="tiles">printdischarge</result>
+			<result name="dischargesaved" type="tiles">dischargesaved</result>
+			<result name="barcode" type="tiles">barcode</result>
+			<result name="singlebarcode" type="tiles">singlebarcode</result>
+			<result name="vitalstatistics" type="tiles">vitalstatistics</result>
+			<result name="savevitals" type="redirect">vitalstatisticsIpd
+			</result>
+
+			<result name="addipdcasualty" type="tiles">addipdcasualty
+			</result>
+			<result name="savecasualty" type="redirect">IpdDashboard?action=1
+			</result>
+			<result name="daycare" type="redirect">IpdDashboard?action=2
+			</result>
+			<result name="editcasualty" type="tiles">editcasualty</result>
+			<result name="admitfromcasualty" type="tiles">admitfromcasualty
+			</result>
+			<result name="leftcasualty" type="redirect">IpdDashboard?action=1
+			</result>
+			<result name="patientlabel" type="tiles">patientlabel</result>
+			<result name="singlepatientlabel" type="tiles">singlepatientlabel
+			</result>
+			<result name="gynicform" type="tiles">gynicform</result>
+			<result name="redirecteditgynic" type="redirect">editgynicformIpd
+			</result>
+			<result name="editgynicform" type="tiles">editgynicform</result>
+			<result name="printgynicform" type="tiles">printgynicform</result>
+			<result name="predischarge" type="tiles">dischargeform</result>
+			<result name="iconelabel" type="tiles">iconelabel</result>
+
+		</action>
+
+
+		<action name="*IpdAjax" method="{1}"
+			class="com.apm.Ipd.web.action.IpdAjaxAction">
+			<result name="input" type="tiles">addIpdform</result>
+			<result name="addipdcasualty" type="tiles">addipdcasualty
+			</result>
+			<result name="returnmedicinenurse" type="tiles">returnmedicinenurse
+			</result>
+		</action>
+
+
+		<action name="*Prescription" method="{1}"
+			class="com.apm.Emr.web.action.PrescriptionAction">
+			<result name="success" type="tiles">viewPrescription</result>
+			<result name="medicalstore" type="tiles">medicalstore</result>
+	<result name="save" type="redirect">Prescription</result> 
+		<result name="savenprint" type="redirect">printpriscEmr</result>
+		</action>
+
+		<!-- Other template Mapping -->
+		<action name="*OtherTemplate" method="{1}"
+			class="com.apm.Master.web.action.OtherTemplateAction">
+
+			<result name="success" type="tiles">otherTemplateList</result>
+			<result name="add" type="tiles">addOtherTemplate</result>
+			<result name="save" type="redirect">OtherTemplate</result>
+			<result name="edit" type="tiles">editOtherTemplate</result>
+		</action>
+
+
+		<!-- Investigation Type Master -->
+
+		<action name="*InvestigationMaster" method="{1}"
+			class="com.apm.Master.web.action.InvestigationMasterAction">
+
+			<result name="success" type="tiles">listInvestigationMaster</result>
+			<result name="add" type="tiles">addInvestigationTypeMaster</result>
+			<result name="save" type="redirect">InvestigationMaster</result>
+			<result name="edit" type="tiles">editInvestigationType</result>
+		</action>
+
+		<!-- Investigation Name Master -->
+		<action name="*InvestigationNameMaster" method="{1}"
+			class="com.apm.Master.web.action.InvestigationNameMasterAction">
+			<result name="success" type="tiles">listInvestigationName</result>
+			<result name="add" type="tiles">addInvestigationName</result>
+			<result name="save" type="redirect">InvestigationNameMaster</result>
+			<result name="updatesave" type="redirect">InvestigationNameMaster
+			</result>
+			<result name="edit" type="tiles">editInvestigationName</result>
+		</action>
+
+
+		<!-- PrescriptionType Master Mapping -->
+
+		<action name="*Prescriptioncategory" method="{1}"
+			class="com.apm.Master.web.action.PrescriptionCategoryAction">
+
+			<result name="success" type="tiles">listPrescriptionCategory</result>
+			<result name="add" type="tiles">addPrescriptionCategory</result>
+			<result name="save" type="redirect">Prescriptioncategory</result>
+			<result name="edit" type="tiles">editPrescriptionCategory</result>
+		</action>
+
+		<!-- PrescriptionDetails Master Mapping -->
+
+		<action name="*Prescriptiondetails" method="{1}"
+			class="com.apm.Master.web.action.PrescriptionDetailsAction">
+
+			<result name="success" type="tiles">listPrescriptionDetails</result>
+			<result name="add" type="tiles">addPrescriptionDetails</result>
+			<result name="save" type="redirect">Prescriptiondetails</result>
+			<result name="edit" type="tiles">editPrescriptiondetails</result>
+
+		</action>
+
+
+		<!-- Bed Master Mapping -->
+
+		<action name="*Bed" method="{1}"
+			class="com.apm.Ipd.web.action.BedMasterAction">
+			<result name="success" type="tiles"> bedMaster </result>
+			<result name="bookbed" type="tiles">bookBed</result>
+			<result name="bedStatus" type="tiles">bedStatus</result>
+			<result name="admission" type="tiles">admission_form</result>
+
+			<result name="edit" type="tiles">editBedStatus</result>
+			<result name="wardmaster" type="tiles">listWardMaster</result>
+			<result name="editwardmaster" type="tiles">editWardMaster</result>
+			<result name="sectionmaster" type="tiles">listSectionMaster</result>
+			<result name="editsectionmaster" type="tiles">editSectionMaster
+			</result>
+			<result name="bedmaster" type="tiles">listBedMaster</result>
+			<result name="editbedmaster" type="tiles">editBedMaster</result>
+			<result name="equipmentmaster" type="tiles">listEquipmentMaster
+			</result>
+			<result name="editequipment" type="tiles">editEquipmentMaster</result>
+		</action>
+
+		<action name="*IpdDashboard" method="{1}"
+			class="com.apm.Ipd.web.action.IpdDashboardAction">
+			<result name="success" type="tiles">bookbed</result>
+			<result name="treatmentsheet" type="tiles">treatmentsheet</result>
+			<result name="dashboard" type="redirect">IpdDashboard</result>
+			<result name="visitconsult" type="tiles">visitconsult</result>
+			<result name="savevisit" type="redirect">viewvisitingconsultIpdDashboard
+			</result>
+			<result name="pkgsaved" type="redirect">IpdDashboard</result>
+			<result name="nipdaccess" type="tiles">nipdaccess</result>
+			<result name="nursingcare" type="tiles">nursingcareplan</result>
+			<result name="printnursingplan" type="tiles">printnursingplan</result>
+			<result name="savepkgDataedit" type="redirect">IpdDashboard</result>
+			<result name="pkgsavedpreview" type="redirect">Statement</result>
+			<result name="savepkgDataeditviewacc" type="redirect">Statement</result>
+		</action>
+
+		<action name="*IpdLog" method="{1}"
+			class="com.apm.Ipd.web.action.IpdLogAction">
+
+		</action>
+
+
+		<!-- Expence Management Mapping -->
+
+		<action name="*ExpenceManagement" method="{1}"
+			class="com.apm.Expence.web.action.ExpenceManagementAction">
+			<result name="success" type="tiles">paymentvoucher</result>
+			<result name="viewexpencereport" type="tiles">viewexpencereport
+			</result>
+			<result name="prinexpencereport" type="tiles">prinexpencereport
+			</result>
+			<result name="save" type="redirect">ExpenceManagement</result>
+			<result name="print" type="tiles">printvoucher</result>
+
+		</action>
+
+		<action name="*Expencecategory" method="{1}"
+			class="com.apm.Master.web.action.ExpencecategoryAction">
+
+			<result name="success" type="tiles">listExpenceCategory</result>
+			<result name="add" type="tiles">addExpencecategory</result>
+			<result name="save" type="redirect">Expencecategory</result>
+			<result name="edit" type="tiles">editExpenceCategory</result>
+		</action>
+
+		<action name="*Barcode" method="{1}"
+			class="com.apm.DiaryManagement.web.action.BarcodeAction">
+			<result name="success" type="tiles">barcode</result>
+		</action>
+
+
+		<!-- Diagnosis Managment -->
+
+		<action name="*Diagnosis" method="{1}"
+			class="com.apm.Diagnosis.web.action.DiagnosisAction">
+
+			<result name="success" type="tiles">diagnosismaster</result>
+			<result name="list" type="tiles">listdiagnosis</result>
+		</action>
+
+		<action name="*DiagnosisNameMaster" method="{1}"
+			class="com.apm.Master.web.action.DiagnosisNameMasterAction">
+			<result name="success" type="tiles">listDiagnosisName</result>
+			<result name="edit" type="tiles">editDiagnosisName</result>
+			<result name="save" type="redirect">DiagnosisNameMaster</result>
+
+		</action>
+
+		<action name="*DiagnosisProblem" method="{1}"
+			class="com.apm.Master.web.action.DiagnosisProblemAction">
+			<result name="success" type="tiles">listDiagnosisProblem</result>
+			<result name="edit" type="tiles">editDiagnosisProblem</result>
+			<result name="save" type="redirect">DiagnosisProblem</result>
+
+		</action>
+
+		<action name="*DiagnosisProblemIntervention" method="{1}"
+			class="com.apm.Master.web.action.DiagnosisProblemInterventionAction">
+
+			<result name="success" type="tiles">listDiagnosisProblemIntervention
+			</result>
+			<result name="edit" type="tiles">editDiagnosisProblemIntervention
+			</result>
+			<result name="save" type="redirect">DiagnosisProblemIntervention</result>
+
+		</action>
+
+
+
+
+		<!-- Problem Listing Action -->
+		<action name="*ProblemListing" method="{1}"
+			class="com.apm.Diagnosis.web.action.ProblemListingAction">
+			<result name="success" type="tiles">problemlisting</result>
+			<result name="clinicalnotes" type="tiles">clinicalnotes</result>
+		</action>
+
+
+		<action name="*MisChart" method="{1}"
+			class="com.apm.Mis.web.action.MisChartAction">
+			<result name="success" type="tiles">mischart</result>
+			<result name="graph" type="tiles">graph</result>
+			<result name="kpireports" type="tiles">kpireports</result>
+			<result name="loginerror" type="tiles">loginerror</result>
+		</action>
+
+
+		<action name="*InitialDischarge" method="{1}"
+			class="com.apm.Ipd.web.action.InitialDischargeAction">
+
+			<result name="success" type="tiles">initialdischarge</result>
+			<result name="save" type="redirect">InitialDischarge</result>
+			<result name="diagnosisdashboard" type="tiles">diagnosisdashboard</result>
+			
+		</action>
+
+
+		<!-- Payroll -->
+
+		<action name="*PayrollDashBoard" method="{1}"
+			class="com.apm.Payroll.web.action.PayrollDashboardAction">
+
+
+			<result name="loginpayroll" type="tiles">loginPayroll</result>
+			<result name="success" type="tiles">payrolldashboard</result>
+			<result name="managecompany" type="tiles">managecompany</result>
+			<result name="managedepartment" type="tiles">managedepartment</result>
+			<result name="managebranches" type="tiles">managebranches</result>
+			<result name="empleave" type="tiles">manageempleave</result>
+			<result name="leaveemp" type="redirect">leaverequestPayrollDashBoard?status=1</result>
+			<result name="leave" type="redirect">leaverequestPayrollDashBoard</result>
+			<result name="leavePrint" type="tiles">leavePrint</result>
+			<result name="weekleave" type="tiles">weekleave</result>
+			<result name="updateweekleave" type="redirect">weekdaysPayrollDashBoard</result>			
+			<result name="empadminleave" type="tiles">empadminleave</result>
+			<result name="payrollotdashboard" type="tiles">payrollotdashboard</result>
+			<result name="otemp" type="redirect">payrollotdashboardPayrollDashBoard</result>
+		</action>
+
+		<action name="*Branch" method="{1}"
+			class="com.apm.Payroll.web.action.BranchAction">
+
+			<result name="branch" type="tiles">managebranches</result>
+			<result name="success" type="redirect">Branch</result>
+
+		</action>
+
+		<action name="*PayrollDepartment" method="{1}"
+			class="com.apm.Payroll.web.action.PayrollDepartmentAction">
+
+			<result name="success" type="tiles">managedepartment</result>
+			<result name="save" type="redirect">PayrollDepartment</result>
+			<result name="showdesignation" type="tiles">showdesignation</result>
+			<result name="savedesignation" type="redirect">showdesignationPayrollDepartment</result>
+			<result name="updatedesignation" type="redirect">showdesignationPayrollDepartment</result>
+			<result name="showqualification" type="tiles">showqualification</result>
+			<result name="savequalification" type="redirect">showqualificationPayrollDepartment</result>
+			<result name="updatequalification" type="redirect">showqualificationPayrollDepartment</result>
+			
+		</action>
+
+		<action name="*PayrollAllowance" method="{1}"
+			class="com.apm.Payroll.web.action.PayrollAllowanceAction">
+			<result name="success" type="tiles">manageallowance</result>
+			<result name="save" type="redirect">PayrollAllowance</result>
+		</action>
+
+		<action name="*Attendance" method="{1}"
+			class="com.apm.Payroll.web.action.AttendanceAction">
+
+			<result name="success" type="tiles">manageattendance</result>
+			<result name="save" type="redirect">Attendance</result>
+			<result name="dayemployee" type="tiles">dayemployee</result>
+		</action>
+
+		<action name="*Deduction" method="{1}"
+			class="com.apm.Payroll.web.action.PayrollDeductionAction">
+
+			<result name="success" type="tiles">managededuction</result>
+			<result name="save" type="redirect">Deduction</result>
+		</action>
+
+		<action name="*Tax" method="{1}"
+			class="com.apm.Payroll.web.action.PayrollTaxAction">
+			<result name="success" type="tiles">managetax</result>
+			<result name="save" type="redirect">Tax</result>
+		</action>
+
+		<action name="*Bank" method="{1}"
+			class="com.apm.Payroll.web.action.BankAction">
+
+			<result name="success" type="tiles">manageBank</result>
+			<result name="save" type="redirect">Bank</result>
+		</action>
+
+		<action name="*PayrollMaster" method="{1}"
+			class="com.apm.Payroll.web.action.PayrollMasterAction">
+
+			<result name="loan" type="tiles">manageloan</result>
+			<result name="holiday" type="tiles">manageholiday</result>
+			<result name="leave" type="tiles">manageleave</result>
+			<result name="increment" type="tiles">manageincrement</result>
+			<result name="salary" type="tiles">managesalary</result>
+			<result name="salarydetails" type="tiles">salarydetails</result>
+			<result name="redirectsalary" type="redirect">payslipPayrollincrement</result>
+			<result name="finalizesal" type="redirect">salaryPayrollMaster</result>
+			<result name="editprocesssalary" type="redirect">salaryPayrollMaster</result>
+			
+		</action>
+
+		<action name="*PayrollEmployee" method="{1}"
+			class="com.apm.Payroll.web.action.PayrollEmployeeAction">
+
+			<result name="success" type="tiles">employeelist</result>
+			<result name="listwiseemp" type="tiles">listwiseemp</result>
+			<result name="savepayrollemp" type="redirect">PayrollEmployee</result>
+			<result name="addemployee" type="tiles">addemployee</result>
+			<result name="editemployee" type="tiles">editemployee</result>
+			 <result name="payrollprofile" type="tiles">payrollprofile</result> 
+			 <result name="updateprofile" type="redirect">PayrollEmployee?status=1</result>  
+			 <result name="payrollbasicsal" type="redirect">payrollprofilePayrollEmployee</result>
+
+		</action>
+
+		<action name="*Payrollincrement" method="{1}"
+			class="com.apm.Payroll.web.action.PayrollIncrementAction">
+
+			<result name="success" type="tiles">manageincrement</result>
+			<result name="edit" type="tiles">editSalaryDetails</result>
+			<result name="editsal" type="tiles">editSalaryMonth</result>
+			<result name="payslip" type="tiles">payslip</result>
+
+		</action>
+
+		<action name="*ReportPayroll" method="{1}"
+			class="com.apm.Payroll.web.action.PayrollReportAction">
+			<result name="holiday" type="tiles">reportHoliday</result>
+			<result name="loan" type="tiles">reportLoan</result>
+			<result name="salary" type="tiles">reportSalary</result>
+			<result name="employee" type="tiles">reportEmployee</result>
+			<result name="attendance" type="tiles">reportAttendance</result>
+			<result name="allowancededuction" type="tiles">reportAllowancededuction
+			</result>
+			<result name="loginpayroll" type="tiles">loginPayroll</result>
+			<result name="employeesalrpt" type="tiles">employeesalrpt</result>
+			<result name="attendancereport" type="tiles">attendancereport</result>
+			<result name="accountreport" type="tiles">accountreport</result>
+		</action>
+
+		<!-- Blood Bank -->
+		<action name="*Bloodbank" method="{1}"
+			class="com.apm.Bloodbank.web.action.BloodbankAction">
+
+			<result name="success" type="tiles">bloodbank</result>
+			<result name="donorlist" type="tiles">donorlist</result>
+			<result name="reports" type="tiles">reports</result>
+			<result name="save" type="redirect">instockBloodbank</result>
+			<result name="bloodcamp" type="tiles">bloodcamp</result>
+			<result name="donatepatient" type="tiles">donatepatient</result>
+			<result name="requestblood" type="tiles">requestblood</result>
+			<result name="instock" type="tiles">instock</result>
+			<result name="banklist" type="tiles"> banklist</result>
+			<result name="ipd" type="redirect">IpdDashboard</result>
+			<result name="opd" type="redirect">allUserNotAvailableSlot</result>
+			<result name="ot" type="redirect">otdbNotAvailableSlot</result>
+			<result name="savebank" type="redirect">banklistBloodbank</result>
+			<result name="saverequest" type="redirect">requestbloodBloodbank</result>
+			<result name="donormaster" type="tiles">donormaster</result>
+			<result name="campmaster" type="tiles">campmaster</result>
+			<result name="employeemaster" type="tiles">employeemaster</result>
+			<result name="hospitalmaster" type="tiles">hospitalmaster</result>
+			<result name="doctormaster" type="tiles">doctormaster</result>
+			<result name="suppliermaster" type="tiles">bloodsuppliermaster
+			</result>
+			<result name="accounting" type="tiles">accountingBloodBank</result>
+			<result name="bloodstock" type="tiles">bloodstock</result>
+			<result name="settingbloodbank" type="tiles">settingbloodbank</result>
+			<result name="procurementblood" type="tiles">procurementblood</result>
+			<result name="testcomponent" type="tiles">testcomponent</result>
+			<result name="crossmatching" type="tiles">crossmatching</result>
+			<result name="bloodinvoice" type="tiles">bloodinvoice</result>
+			<result name="stockcheck" type="tiles">stockcheck</result>
+			<result name="bloodbankprint" type="tiles">bloodbankprint</result>
+
+
+
+		</action>
+		<!-- Inventory -->
+		<action name="*Inventory" method="{1}"
+			class="com.apm.Inventory.web.action.InventoryVendorAction">
+
+			<result name="vendor" type="tiles">listVendor</result>
+			<result name="addvendor" type="tiles">addVendor</result>
+			<result name="editvendor" type="tiles">editVendor</result>
+			<result name="save" type="redirect">Inventory</result>
+			<result name="manage" type="tiles">manageInventory</result>
+			<result name="listvendor" type="redirect">manageInventory</result>
+			<result name="viewvendor" type="tiles">viewVendor</result>
+
+		</action>
+
+		<action name="*Productinventory" method="{1}"
+			class="com.apm.Inventory.web.action.InventoryProductMasterAction">
+
+			<result name="categories" type="tiles">listCategories</result>
+			<result name="addcategory" type="tiles">addCategory</result>
+			<result name="editcategory" type="tiles">editCategory</result>
+			<result name="subcategories" type="tiles">listSubcategory</result>
+			<result name="addsubcategory" type="tiles">addSubcategory</result>
+			<result name="editsubcategory" type="tiles">editSubcategory</result>
+			<result name="listbrand" type="tiles">listBrand</result>
+			<result name="addbrand" type="tiles">addBrand</result>
+			<result name="editbrand" type="tiles">editBrand</result>
+			<result name="addcategories" type="tiles">addcategories</result>
+
+		</action>
+
+		<action name="*Catalogue" method="{1}"
+			class="com.apm.Inventory.web.action.InventoryCatalogueAction">
+
+			<result name="success" type="tiles">listCatalogue</result>
+			<result name="transferproductdata" type="redirect">Catalogue</result>
+			<result name="liststock" type="tiles">stockStatus</result>
+			<result name="transferproductdata1" type="redirect">listProduct?isfromcathlab=0
+			</result>
+			<result name="transferproductdata2" type="redirect">listProduct?isfromcathlab=1
+			</result>
+			<result name="consumptioreport" type="redirect">bomkitdashboardProduct
+			</result>
+			<result name="managecatlogue" type="tiles">managecatlogue</result>
+			<result name="bomkittemplate" type="redirect">bomkittemplateProduct
+			</result>
+		</action>
+
+		<action name="*Storageinventory" method="{1}"
+			class="com.apm.Inventory.web.action.InventoryStorageAction">
+
+			<result name="success" type="tiles">manageStorage</result>
+			<result name="stock" type="tiles">stockStatus</result>
+
+		</action>
+
+		<action name="*Product" method="{1}"
+			class="com.apm.Inventory.web.action.ProductAction">
+
+			<result name="success" type="tiles">manageProduct</result>
+			<result name="ordertrack" type="tiles">ordertrack</result>
+			<result name="liststock" type="tiles">stockStatus</result>
+			<result name="listcatalogue" type="tiles">listCatalogue</result>
+			<result name="listproduct" type="redirect">listProduct</result>
+			<result name="listsale" type="tiles">listsale</result>
+			<result name="quicksearch" type="tiles">quicksearch</result>
+			<result name="procurement" type="redirect">Procurement</result>
+			<result name="savesale" type="redirect">listsaleProduct</result>
+			<result name="showstock" type="redirect">listProduct</result>
+			<result name="sale" type="tiles">saleproduct</result>
+			<result name="expencereport" type="tiles">expencereport</result>
+			<result name="expirymedicine" type="tiles">expirymedicine</result>
+			<result name="vatreport" type="tiles">vatreport</result>
+			<result name="supplierledgerreport" type="tiles">supplierledgerreport
+			</result>
+			<result name="profitloss" type="tiles">profitloss</result>
+			<result name="viewcatalogue" type="redirect">Catalogue</result>
+			<result name="loginerror" type="tiles">loginerror</result>
+			<result name="itemwisereport" type="tiles">itemwisereport</result>
+			<result name="bincardReport" type="tiles">bincardreport</result>
+			<result name="productReturnReport" type="tiles">productReturnReport
+			</result>
+			<result name="productReceivedReport" type="tiles">productReceivedReport
+			</result>
+			<result name="salereport" type="tiles">salereport</result>
+			<result name="transferdashboard" type="tiles">transferdashboard
+			</result>
+			<result name="updeletereport" type="tiles">updeletereport</result>
+			<result name="checkmedicineavability" type="tiles">checkmedicineavability
+			</result>
+			<result name="transferToTansferDash" type="redirect">transferdashboardProduct
+			</result>
+			<result name="inventoryOpeningClosingReport" type="tiles">inventoryOpeningClosingReport
+			</result>
+			<result name="consumptionreport" type="tiles">consumptionreport
+			</result>
+			<result name="deliverPrint" type="tiles">deliverPrint</result>
+			<result name="deliverPrintDirect" type="tiles">deliverPrintDirect
+			</result>
+			<result name="paymentreceivereport" type="tiles">paymentreceivereport
+			</result>
+			<result name="itemwisestockreport" type="tiles">itemwisestockreport
+			</result>
+			<result name="transferreport" type="tiles">transferreport</result>
+			<result name="usersaccessreport" type="tiles">usersaccessreport
+			</result>
+			<result name="returnque" type="tiles">returnque</result>
+			<result name="savereturndashboard" type="redirect">returnproductdashboardProduct
+			</result>
+			<result name="returndashboard" type="tiles">returndashboard</result>
+			<result name="viewreturngrn" type="tiles">viewreturngrn</result>
+			<result name="printreturngrn" type="tiles">printreturngrn</result>
+			<result name="patientconsumptionreport" type="tiles">patientconsumptionreport
+			</result>
+			<result name="profitlossreport" type="tiles">profitlossreport
+			</result>
+			<result name="indentreport" type="tiles">indentreport</result>
+			<result name="bomkitdashboard" type="tiles">bomkitdashboard</result>
+			<result name="bomkittemplate" type="tiles">bomkittemplate</result>
+			<result name="bomkittemplatedash" type="redirect">bomkittemplateProduct
+			</result>
+			<result name="supplierpaymentreport" type="tiles">supplierpaymentreport
+			</result>
+			<result name="transferproductdata2" type="redirect">listProduct?isfromcathlab=1
+			</result>
+			<result name="returndashboardmethod" type="redirect">returnproductdashboardProduct
+			</result>
+			<result name="inventoryOpeningClosingByCatalogue" type="tiles">inventoryOpeningClosingByCatalogue
+			</result>
+			<result name="productwisereport" type="tiles">productwisereport
+			</result>
+			<result name="inventorygstreport" type="tiles">inventorygstreport
+			</result>
+			<result name="cancelpharmacybillreport" type="tiles">cancelpharmacybillreport</result>
+			<result name="bincardReportnew" type="tiles">bincardreportnew</result>
+			<result name="indentnewreport" type="tiles">indentnewreport</result>
+			<result name="editgrnlogreport" type="tiles">editgrnlogreport</result>
+			<result name="expiryproductpopup" type="tiles">expiryproductpopup</result>
+			<result name="minimumqtypopup" type="tiles">minimumqtypopup</result>
+		</action>
+
+		<action name="*Procurement" method="{1}"
+			class="com.apm.Inventory.web.action.ProcurementAction">
+
+			<result name="success" type="tiles">procurement</result>
+			<result name="createpo" type="tiles">createpo</result>
+			<result name="completepo" type="tiles">completepo</result>
+			<result name="payment" type="tiles">payment1</result>
+			<result name="savepo" type="redirect">Procurement</result>
+			<result name="purorder" type="tiles">purorder</result>
+			<result name="emailpurorder" type="tiles">emailpurorder</result>
+			<result name="editpurorder" type="tiles">editpurorder</result>
+			<result name="returnpurorder" type="tiles">returnpurorder</result>
+			<result name="longpo" type="tiles">longpo</result>
+			<result name="grnprint" type="tiles">grnprint</result>
+			<result name="requestedpo" type="tiles">requestedpo</result>
+			<result name="printconfirmgrn" type="tiles">printconfirmgrn</result>
+			<result name="uploadgrn" type="tiles">uploadgrn </result>
+			<result name="reorder" type="tiles">reorderProcurement</result>
+			<result name="dmdashboard" type="tiles">dmdashboard</result>
+			<result name="newDmList" type="tiles">newDmList</result>
+			<result name="emailPOList" type="tiles">emailPOList</result>
+			<result name="detailgrnreport" type="tiles">detailgrnreport</result>
+			<result name="printpayment" type="tiles">printpayment</result>
+			<result name="agreementdashboard" type="tiles">agreementdashboard
+			</result>
+			<result name="agreementdash" type="redirect">agreementdashboardProcurement
+			</result>
+			<result name="confirmpo" type="redirect">Procurement</result>
+		</action>
+
+		<action name="*PoPayment" method="{1}"
+			class="com.apm.Inventory.web.action.PoPaymentAction">
+			<result name="success" type="tiles">popayment</result>
+			<result name="pay" type="redirect">paymentProcurement?paymentsucess=1
+			</result>
+		</action>
+
+
+		<!-- Standard Charges Master -->
+
+		<action name="*Standardcharges" method="{1}"
+			class="com.apm.Master.web.action.StandardChargesAction">
+
+			<result name="success" type="tiles">listStandardCharges</result>
+			<result name="add" type="tiles">addStandardCharges</result>
+			<result name="save" type="redirect">Standardcharges</result>
+			<result name="edit" type="tiles">editStandardcharges</result>
+		</action>
+
+
+		<!-- master Nursing Category -->
+		<action name="*Nursingcategory" method="{1}"
+			class="com.apm.Master.web.action.NursingCategoryAction">
+			<result name="success" type="tiles">listNursingcategory</result>
+			<result name="add" type="tiles">addNursingcategory</result>
+			<result name="save" type="redirect">Nursingcategory</result>
+			<result name="edit" type="tiles">editNursingcategory</result>
+		</action>
+
+		<action name="*Nursingdetails" method="{1}"
+			class="com.apm.Master.web.action.NursingDetailsAction">
+
+			<result name="success" type="tiles">listNursingdetails</result>
+			<result name="add" type="tiles">addNursingdetails</result>
+			<result name="save" type="redirect">Nursingdetails</result>
+			<result name="edit" type="tiles">editNursingdetails</result>
+
+		</action>
+
+		<action name="*Nursing" method="{1}"
+			class="com.apm.Emr.web.action.NursingAction">
+			<result name="success" type="tiles">list</result>
+			<result name="ipddashboard" type="redirect">IpdDashboard</result>
+		</action>
+		<action name="*Pacs" method="{1}"
+			class="com.apm.Pacs.web.action.PacsAction">
+			<result name="success" type="tiles">pacspage</result>
+			<result name="savedicom" type="redirect">Pacs</result>
+			<result name="folder" type="tiles">folder</result>
+			<result name="multiviewer" type="tiles">multiviewer</result>
+		</action>
+
+		<action name="*Events" method="{1}"
+			class="com.apm.Master.web.action.EventsAction">
+			<result name="success" type="tiles">listEvents</result>
+			<result name="save" type="redirect">Events</result>
+			<result name="add" type="tiles">addEvents</result>
+			<result name="edit" type="tiles">editEvent</result>
+		</action>
+
+		<action name="*Eq" method="{1}" class="com.apm.Eq.web.action.EQAction">
+
+			<result name="register" type="tiles">eqregister</result>
+			<result name="emrlink" type="redirect">ehislinkEmr</result>
+			<result name="otppage" type="tiles">otppage</result>
+			<result name="errorotp" type="tiles">errorotp</result>
+
+		</action>
+
+		<action name="*Housekeepingdashboard" method="{1}"
+			class="com.apm.HouseKeeping.web.action.HousekeepingDashBoardAction">
+
+			<result name="success" type="tiles">housekeeping</result>
+			<result name="laundry" type="tiles">laundry</result>
+			<result name="housekeepingserviceprovider" type="tiles">serviceprovider
+			</result>
+			<result name="maintenance" type="tiles">maintenance</result>
+
+			<result name="asset" type="tiles">asset</result>
+
+		</action>
+
+		<!-- Send SMS Mapping -->
+
+
+		<action name="*Sendsms" method="{1}"
+			class="com.apm.Master.web.action.SendsmsAction">
+			<result name="success" type="tiles">sendSms</result>
+		</action>
+
+		<action name="*Godown" method="{1}"
+			class="com.apm.Master.web.action.GodownAction">
+			<result name="success" type="tiles">godownlist</result>
+			<result name="save" type="redirect">Godown</result>
+			<result name="add" type="tiles">addGodown</result>
+			<result name="edit" type="tiles">editGodown</result>
+		</action>
+
+		<!-- Cafeteria -->
+		<action name="*Cafeteria" method="{1}"
+			class="com.apm.Cafeteria.web.action.CafeteriaAction">
+
+			<result name="success" type="tiles">cafeteria</result>
+			<result name="history" type="tiles">cafeteriahistory</result>
+		</action>
+
+
+		<action name="*Ipdtemplate" method="{1}"
+			class="com.apm.Master.web.action.IpdTemplateAction">
+
+			<result name="success" type="tiles">listIpdTemplate</result>
+			<result name="add" type="tiles">addIpdTemplate</result>
+			<result name="edit" type="tiles">editIpdTemplate</result>
+			<result name="save" type="redirect">Ipdtemplate</result>
+		</action>
+
+		<action name="*Accountreconcilation" method="{1}"
+			class="com.apm.Accounts.web.action.AccountReconsilationAction">
+
+			<result name="success" type="tiles">accountReconcilation</result>
+			<result name="report" type="tiles">reconcilationReport</result>
+			<result name="account" type="tiles">accountDetails</result>
+
+		</action>
+		<action name="*Bankdeposite" method="{1}"
+			class="com.apm.Accounts.web.action.BankDepositeAction">
+
+			<result name="success" type="tiles">bankdeposite</result>
+			<result name="cheque" type="tiles">chequeDetails</result>
+		</action>
+
+		<action name="*Conditionreport" method="{1}"
+			class="com.apm.Report.web.action.PatientConditionReportAction">
+
+			<result name="success" type="tiles">patinetconditionReport</result>
+		</action>
+
+		<action name="*Pharmacy" method="{1}"
+			class="com.apm.Pharmacy.web.action.PharmacyAction">
+			<result name="success" type="tiles">viewpharmacy</result>
+			<result name="onlinereqdashboard" type="tiles">onlinereqdashboard
+			</result>
+			<result name="checkavailability" type="tiles">checkavailability
+			</result>
+			<result name="saleprisc" type="tiles">saleprisc</result>
+			<result name="reportprisc" type="tiles">reportprisc</result>
+			<result name="creditbill" type="tiles">creditbill</result>
+			<result name="record" type="tiles">record</result>
+			<result name="newsale" type="tiles">newsale</result>
+
+			<result name="redirectbill" type="redirect"> viewbillPharmacy</result>
+			<result name="save" type="redirect">Pharmacy</result>
+			<result name="editmedicine" type="tiles">editmedicine</result>
+			<result name="printprisc" type="tiles">printpharmacyprisc</result>
+			<result name="reorder" type="tiles">reorder</result>
+			<result name="returnmedicine" type="tiles">returnmedicine</result>
+			<result name="plist" type="tiles">plist</result>
+			<result name="editbill" type="tiles">editBill</result>
+			<result name="doctorreport" type="tiles">doctorreport</result>
+			<result name="discpatientreport" type="tiles">discpatientreport
+			</result>
+
+			<result name="pharmacysetting" type="tiles">pharmacysetting</result>
+			<result name="polist" type="redirect">Procurement</result>
+			<result name="userpharreport" type="tiles">userpharreport</result>
+			<result name="expiryreport" type="tiles">expiryreport</result>
+			<result name="refund" type="tiles">refundBill</result>
+			<result name="medicinebarcode" type="tiles">medicinebarcode</result>
+			<result name="mdbarcode" type="tiles">mdbarcode</result>
+			<result name="allmdbarcode" type="tiles">allmdbarcode</result>
+			<result name="singlebarcodeinv" type="tiles">singlebarcodeinven</result>
+			<result name="setting" type="redirect">pharmacysettingPharmacy</result>
+			<result name="loginerror" type="tiles">loginerror</result>
+			<result name="returnipdmedicine" type="tiles">returnipdmedicine
+			</result>
+			<result name="refundbill" type="tiles">refundbill</result>
+			<result name="bigBill" type="tiles">bigBill</result>
+			<result name="opdipdsaleprisc" type="tiles">opdipdsaleprisc</result>
+			<result name="tempbill" type="redirect">salepriscPharmacy
+			</result>
+			<result name="estimatesale" type="tiles">estimatesale</result>
+			<result name="requestTransfer" type="tiles">requestTransfer</result>
+			<result name="requestMedicine" type="redirect">requestTransferPharmacy
+			</result>
+			<result name="transfertocatalogue" type="tiles">transfertocatalogue
+			</result>
+			<result name="printbalreceipt" type="redirect">printbalreceiptPharmacy
+			</result>
+			<result name="printslip" type="tiles">printbalreceipt</result>
+			<result name="getallbillforprint" type="tiles">getallbillforprint
+			</result>
+			<result name="productwisereturnreport" type="tiles">productwisereturnreport
+			</result>
+			<result name="pharmacysalereport" type="tiles">pharmacysalereport
+			</result>
+			<result name="returnmultimedicine" type="tiles">returnmultimedicine
+			</result>
+			<result name="bigbilllazer" type="tiles">bigbilllazer</result>
+			<result name="tempmedicinelist" type="tiles">tempmedicinelist</result>
+			<result name="settopermanat" type="redirect">tempmedicinelistPharmacy
+			</result>
+			<result name="returntonursedash" type="redirect">returnmedicinedashPharmacy
+			</result>
+			<result name="retnursedashboard" type="tiles">retnursedashboard
+			</result>
+			<result name="newdrreport" type="tiles">newdrreport</result>
+			<result name="newmedicinedailycount" type="tiles">newmedicinedailycount
+			</result>
+			<result name="newgstReport" type="tiles">newgstReport</result>
+			<result name="hsnwisegst" type="tiles">hsnwisegst</result>
+			<result name="returnmedicinenursemethod" type="redirect">returnipdmedicineIpdAjax
+			</result>
+			<result name="recivedcredit" type="tiles">recivedcredit</result>
+			<result name="shortpharmacybill" type="tiles">shortpharmacybill
+			</result>
+			<result name="priscagainstsalereport" type="tiles">priscagainstsalereport
+			</result>
+			<result name="phardiscountsave" type="redirect">phardiscountPharmacy</result>
+			<result name="phardiscount" type="tiles">phardiscount</result>
+		</action>
+
+		<action name="*Sharecharge" method="{1}"
+			class="com.apm.Master.web.action.ShareChargesAction">
+
+			<result name="success" type="tiles">shareCharges</result>
+
+		</action>
+
+		<action name="*Doctorsharereport" method="{1}"
+			class="com.apm.Report.web.action.DoctorShareReportAction">
+
+			<result name="success" type="tiles">doctorShareReport</result>
+
+		</action>
+
+		<action name="*TPFollower" method="{1}"
+			class="com.apm.Master.web.action.TPFollowerChargesAction">
+
+			<result name="success" type="tiles">tpfollowerPage</result>
+			<result name="save" type="redirect">TPFollower</result>
+		</action>
+
+		<action name="*Mrd" method="{1}" class="com.apm.Mrd.web.action.MrdAction">
+			<result name="mrd" type="tiles">mrdjsppage</result>
+			<result name="updated" type="redirect">Mrd</result>
+			<result name="mrdAddPatient" type="tiles">mrdAddPatient</result>
+		</action>
+
+		<!-- Master Changes -->
+
+		<!--State Master Action -->
+		<action name="*State" method="{1}"
+			class="com.apm.Master.web.action.StateAction">
+			<result name="state" type="tiles">state</result>
+			<result name="addstate" type="tiles">addState</result>
+			<result name="savestate" type="chain">State</result>
+			<result name="deletedstate" type="chain">State</result>
+			<result name="editstate" type="tiles">editState</result>
+			<result name="updatestate" type="chain">State</result>
+		</action>
+
+		<!-- City Master Action -->
+		<action name="*CityMaster" method="{1}"
+			class="com.apm.Master.web.action.CityMasterAction">
+			<result name="city" type="tiles">city</result>
+			<result name="addcity" type="tiles">addCity</result>
+			<result name="savecity" type="chain">CityMaster</result>
+			<result name="deletedcity" type="chain">CityMaster</result>
+			<result name="editcity" type="tiles">editCity</result>
+			<result name="updatecity" type="chain">CityMaster</result>
+		</action>
+
+		<!-- Shelf Master Action -->
+		<action name="*ShelfMaster" method="{1}"
+			class="com.apm.Master.web.action.ShelfMasterAction">
+			<result name="shelf" type="tiles">shelf</result>
+			<result name="addshelf" type="tiles">addShelf</result>
+			<result name="saveshelf" type="chain">ShelfMaster</result>
+			<result name="deletedshelf" type="chain">ShelfMaster</result>
+			<result name="editshelf" type="tiles">editShelf</result>
+			<result name="updateshelf" type="chain">ShelfMaster</result>
+		</action>
+
+		<action name="*Dietary" method="{1}"
+			class="com.apm.Dietary.web.action.DietaryAction">
+			<result name="success" type="tiles">viewAll</result>
+			<result name="add" type="tiles">AddInfo</result>
+			<result name="save" type="chain">Dietary</result>
+			<result name="edit" type="tiles">edit</result>
+			<result name="update" type="chain">Dietary</result>
+			<result name="delete" type="chain">Dietary</result>
+		</action>
+
+
+		<action name="*Dietarydetails" method="{1}"
+			class="com.apm.Dietary.web.action.DietaryDetailsAction">
+			<result name="success" type="tiles">showall</result>
+			<result name="addcall" type="tiles">AddInformation</result>
+			<result name="editcall" type="tiles">editInformation</result>
+			<result name="update" type="chain">Dietarydetails</result>
+			<result name="save" type="chain">Dietarydetails</result>
+			<result name="dietary" type="tiles">dietary</result>
+			<result name="delete" type="chain">Dietarydetails</result>
+			<result name="dietaryplandeleted" type="redirect">dietaryDietarydetails
+			</result>
+			<result name="printdiethistory" type="tiles">printdiethistory</result>
+			<result name="dietupdated" type="redirect">dietaryDietarydetails</result>
+			<result name="dataSave" type="redirect">dietaryDietarydetails</result>
+			<result name="generaldiet" type="tiles">generaldiet</result>
+			<result name="generaldietplan" type="redirect">showgeneraldietplanDietarydetails
+			</result>
+			<result name="printgeneraldietplan" type="tiles">printgeneraldietplan
+			</result>
+			<result name="showgeneraldietplan" type="tiles">showgeneraldietplan
+			</result>
+			<result name="editgeneraldietplan" type="tiles">editgeneraldietplan
+			</result>
+
+		</action>
+
+
+		<action name="*Ipdformsetting" method="{1}"
+			class="com.apm.Master.web.action.IpdFormSettingMasterAction">
+			<result name="success" type="tiles">ipdformSettingList</result>
+			<result name="add" type="tiles">addIpdformSetting</result>
+			<result name="save" type="redirect"> Ipdformsetting</result>
+			<result name="edit" type="tiles"> editIpdformsetting</result>
+
+		</action>
+
+		<!-- Package Master Action -->
+		<action name="*PackageMaster" method="{1}"
+			class="com.apm.Master.web.action.PackageMasterAction">
+			<result name="success" type="tiles">listpackagemaster</result>
+			<result name="savePackage" type="redirect">PackageMaster</result>
+			<result name="deletedPackage" type="redirect">PackageMaster</result>
+			<result name="updatePackage" type="redirect">PackageMaster</result>
+			<result name="packagedashboard" type="tiles">packagedashboard</result>
+			<result name="childpackagelist" type="tiles">childpackagelist</result>
+		</action>
+
+
+		<!--Location Master Action -->
+		<action name="*LocationMaster" method="{1}"
+			class="com.apm.Master.web.action.LocationMasterAction">
+			<result name="locationmaster" type="tiles">locationMaster</result>
+			<result name="addlocationMaster" type="tiles">addlocationmaster
+			</result>
+			<result name="savelocationMaster" type="redirect">LocationMaster</result>
+			<result name="deletedlocationMaster" type="redirect">LocationMaster
+			</result>
+			<result name="editlocationMaster" type="tiles">editlocationmaster
+			</result>
+			<result name="updatelocationMaster" type="redirect">LocationMaster
+			</result>
+		</action>
+
+		<!--support dashboard -->
+		<action name="*Support" method="{1}"
+			class="com.apm.Support.web.action.SupportAction">
+			<result name="success" type="tiles">supportlist</result>
+			<result name="requestqueue" type="tiles">requestqueue</result>
+			<result name="adminrequestqueue" type="tiles">adminrequestqueue</result>
+			<result name="linkup" type="redirect">requestqueue</result>
+			<result name="showdetailsreuest" type="tiles">showdetailsreuest</result>
+			<result name="requestqueue1" type="redirect">requestqueue1Support</result>
+			<result name="requestdetails" type="tiles">requestdetails</result>
+			<result name="craeteTicketforsuport" type="redirect">adminrequestqueueSupport</result>
+			<result  name="savescreenshot"   type="redirect">requestqueue1Support</result>
+		</action>
+		<action name="*UserAdministration" method="{1}"
+			class="com.apm.Support.web.action.UserAdministrationAction">
+			<result name="allhospitals" type="tiles">allhospitals</result>
+			<result name="generatedatabackend" type="redirect">PackageMaster</result>
+		</action>
+
+		<action name="*KPI" method="{1}"
+			class="com.apm.Report.web.action.KPIReportAction">
+			<result name="success" type="tiles">kpiReport</result>
+			<result name="kpidashboard" type="tiles">kpidashboard</result>
+			<result name="addindicatortokpi" type="redirect">kpidashboardKPI</result>
+			<result name="addIndicator" type="tiles">addIndicator</result>
+			<result name="saveIndicator" type="redirect">kpidashboardKPI</result>
+		</action>
+
+		<!--Product Type Master Action -->
+		<action name="*ProductTypeMaster" method="{1}"
+			class="com.apm.Master.web.action.ProductTypeMasterAction">
+			<result name="producttypemaster" type="tiles">producttypemaster
+			</result>
+			<result name="addproducttypemaster" type="tiles">addproducttypemaster
+			</result>
+			<result name="saveproducttypemaster" type="redirect">ProductTypeMaster
+			</result>
+			<result name="deletedproducttypemaster" type="redirect">ProductTypeMaster
+			</result>
+			<result name="editproducttypemaster" type="tiles">editproducttypemaster
+			</result>
+			<result name="updateproducttypemaster" type="redirect">ProductTypeMaster
+			</result>
+
+		</action>
+
+		<!--Medicine Type Master Action -->
+		<action name="*MedicineTypeMaster" method="{1}"
+			class="com.apm.Master.web.action.MedicineTypeMasterAction">
+			<result name="medicinetypemaster" type="tiles">medicinetypemaster
+			</result>
+			<result name="addmedicinetypemaster" type="tiles">addmedicinetypemaster
+			</result>
+			<result name="savemedicinetypemaster" type="redirect">MedicineTypeMaster
+			</result>
+			<result name="deletedmedicinetypemaster" type="redirect">MedicineTypeMaster
+			</result>
+			<result name="editmedicinetypemaster" type="tiles">editmedicinetypemaster
+			</result>
+			<result name="updatemedicinetypemaster" type="redirect">MedicineTypeMaster
+			</result>
+		</action>
+
+		<!--Investigation Template Master Action -->
+		<action name="*InvestigationTemplate" method="{1}"
+			class="com.apm.Master.web.action.InvestigationTemplateAction">
+			<result name="investigationtemplate" type="tiles">listInvestigationTemplate
+			</result>
+			<result name="addinvestigationtemplate" type="tiles">addinvestigationtemplate
+			</result>
+			<result name="saveinvestigationtemplate" type="redirect">InvestigationTemplate
+			</result>
+			<result name="editinvestigationtemplate" type="tiles">editinvestigationtemplate
+			</result>
+			<result name="updateinvestigationtemplate" type="redirect">InvestigationTemplate
+			</result>
+			<result name="deleteinvestigationtemplate" type="redirect">InvestigationTemplate
+			</result>
+		</action>
+
+
+		<!--Investigation Section Master Action -->
+		<action name="*InvestigationSectionMaster" method="{1}"
+			class="com.apm.Master.web.action.InvestigationSectionMasterAction">
+			<result name="listInvestigationSection" type="tiles">listInvestigationSection
+			</result>
+			<result name="addInvestgationSection" type="tiles">addInvestgationSection
+			</result>
+			<result name="editInvestigationSection" type="tiles">editInvestgationSection
+			</result>
+			<result name="saveInvestigationSection" type="redirect">InvestigationSectionMaster
+			</result>
+			<result name="deleteInvestigationSection" type="redirect">InvestigationSectionMaster
+			</result>
+			<result name="updateInvestigationSection" type="redirect">InvestigationSectionMaster
+			</result>
+		</action>
+
+		<!--Terms and Condition Master Action -->
+		<action name="*TermsConditionMaster" method="{1}"
+			class="com.apm.Master.web.action.TermsConditionMasterAction">
+			<result name="listTermsCondition" type="tiles">listTermsCondition
+			</result>
+			<result name="addTermsCondition" type="tiles">addTermsCondition
+			</result>
+			<result name="editTermsCondition" type="tiles">editTermsCondition
+			</result>
+			<result name="saveTermsCondition" type="redirect">TermsConditionMaster
+			</result>
+			<result name="deleteTermsCondition" type="redirect">TermsConditionMaster
+			</result>
+			<result name="updateTermsCondition" type="redirect">TermsConditionMaster
+			</result>
+		</action>
+
+		<!-- Vital Master @ jitu -->
+		<action name="*Vitalmaster" method="{1}"
+			class="com.apm.Master.web.action.VitalMasterAction">
+			<result name="success" type="tiles">listvitalMasterList</result>
+			<result name="add" type="tiles">addvitalMasterList</result>
+			<result name="save" type="redirect">Vitalmaster</result>
+			<result name="edit" type="tiles">editvitalMasterList</result>
+
+		</action>
+
+		<!-- NABH Master -->
+		<action name="*NABHCatagoryMaster" method="{1}"
+			class="com.apm.Master.web.action.NABHCatagoryMasterAction">
+			<result name="nabhcatagorymaster" type="tiles">nabhcatagorymaster
+			</result>
+			<result name="addnabhcatagorymaster" type="tiles">addnabhcatagorymaster
+			</result>
+			<result name="save" type="redirect">NABHCatagoryMaster</result>
+			<result name="deleted" type="redirect">NABHCatagoryMaster</result>
+			<result name="edit" type="tiles">editnabhcatagorymaster</result>
+			<result name="update" type="redirect">NABHCatagoryMaster</result>
+		</action>
+
+		<!-- NABH Sub Catagary Master -->
+		<action name="*NABHSubCatagoryMaster" method="{1}"
+			class="com.apm.Master.web.action.NABHSubCatagoryMasterAction">
+			<result name="nabhsubcat" type="tiles">nabhsubcatagorymaster</result>
+			<result name="add" type="tiles">addnabhsubcat</result>
+			<result name="save" type="redirect">NABHSubCatagoryMaster</result>
+			<result name="deleted" type="redirect">NABHSubCatagoryMaster</result>
+			<result name="edit" type="tiles">editnabhsubcat</result>
+			<result name="update" type="redirect">NABHSubCatagoryMaster</result>
+		</action>
+
+		<!-- NABH Sub Catagary Master -->
+		<action name="*NABHAreaMaster" method="{1}"
+			class="com.apm.Master.web.action.NABHAreaMasterAction">
+			<result name="nabharea" type="tiles">nabhareamaster</result>
+			<result name="add" type="tiles">addnabharea</result>
+			<result name="save" type="redirect">NABHAreaMaster</result>
+			<result name="deleted" type="redirect">NABHAreaMaster</result>
+			<result name="edit" type="tiles">editnabharea</result>
+			<result name="update" type="redirect">NABHAreaMaster</result>
+		</action>
+
+
+		<!-- TPA Dashboard -->
+		<action name="*Tpa" method="{1}"
+			class="com.apm.ThirdParties.web.action.TPADashboardAction">
+			<result name="success" type="tiles">tpadashboard</result>
+			<result name="tpadashboard" type="redirect">Tpa</result>
+		</action>
+
+
+
+		<!--Scheduler Master Action -->
+		<action name="*SchedulerTask" method="{1}"
+			class="com.apm.Master.web.action.SchedulerTaskAction">
+			<result name="success" type="tiles">listSchedulerTask</result>
+			<result name="add" type="tiles">addSchedulerTask</result>
+			<result name="save" type="redirect">SchedulerTask</result>
+
+			<result name="edit" type="tiles">editSchedulerTask</result>
+
+		</action>
+
+		<action name="*SchedulerSubtask" method="{1}"
+			class="com.apm.Master.web.action.SchedulerSubtaskAction">
+			<result name="success" type="tiles">listSchedulerSubtask</result>
+			<result name="add" type="tiles">addSchedulerSubtask</result>
+			<result name="save" type="redirect">SchedulerSubtask</result>
+
+			<result name="edit" type="tiles">editSchedulerSubtask</result>
+
+		</action>
+
+
+		<action name="*Mobapi" method="{1}" class="com.apm.Api.MobileApiAction">
+		</action>
+		<action name="*NursingPlan" method="{1}"
+			class="com.apm.Master.web.action.NursingDiagnosisAction">
+			<result name="nursingdiagnosis" type="tiles">listNursingDiagnosis
+			</result>
+			<result name="add" type="tiles">addNursingDiagnosis</result>
+			<result name="save" type="redirect">NursingPlan</result>
+			<result name="edit" type="tiles">editNursingDiagnosis</result>
+		</action>
+
+		<action name="*NursingCarePlanning" method="{1}"
+			class="com.apm.Master.web.action.NursingPlanningAction">
+			<result name="success" type="tiles">listNursingCarePlanning</result>
+			<result name="add" type="tiles">addNursingCarePlanning</result>
+			<result name="save" type="redirect">NursingCarePlanning</result>
+			<result name="edit" type="tiles">editNursingCarePlanning</result>
+		</action>
+		<action name="*NursingCareIntervention" method="{1}"
+			class="com.apm.Master.web.action.NursingInterventionAction">
+			<result name="success" type="tiles">listNursingCareIntervention
+			</result>
+			<result name="add" type="tiles">addNursingCareIntervention</result>
+			<result name="save" type="redirect">NursingCareIntervention</result>
+
+			<result name="edit" type="tiles">editNursingCarePlanning</result>
+			<result name="deletenursing" type="redirect">NursingCareIntervention
+			</result>
+			<result name="editnursing" type="tiles">editNursingCareIntervention
+			</result>
+			<result name="updatenursing" type="redirect">NursingCareIntervention
+			</result>
+		</action>
+
+		<action name="*Book" method="{1}"
+			class="com.apm.Master.web.action.BookAction">
+			<result name="showallbook" type="tiles">showallbook</result>
+			<result name="addbook" type="tiles">addBook</result>
+			<result name="savebook" type="redirect">showallbookBook</result>
+			<result name="deletedbook" type="redirect">showallbookBook</result>
+			<result name="editbook" type="tiles">editBook</result>
+			<result name="updatebook" type="redirect">showallbookBook</result>
+		</action>
+
+
+		<action name="*Master" method="{1}"
+			class="com.apm.Master.web.action.MasterAction">
+			<result name="showallbookChapter" type="tiles">showallbookChapter
+			</result>
+			<result name="addbookChapter" type="tiles">addBookChapter</result>
+			<result name="savebookChapter" type="redirect">showallbookChapterMaster
+			</result>
+			<result name="deletedbookChapter" type="redirect">showallbookChapterMaster
+			</result>
+			<result name="editbookChapter" type="tiles">editBookChapter</result>
+			<result name="updatebookChapter" type="redirect">showallbookChapterMaster
+			</result>
+			<result name="showallOutSource" type="tiles">showallOutSource</result>
+			<result name="addOutSource" type="tiles">addOutSource</result>
+			<result name="saveOutSource" type="redirect">showallOutSourceMaster
+			</result>
+			<result name="deletedOutSource" type="redirect">showallOutSourceMaster
+			</result>
+			<result name="editOutSource" type="tiles">editOutSource</result>
+			<result name="updateOutSource" type="redirect">showallOutSourceMaster
+			</result>
+			<result name="showallOutSourceData" type="tiles">showallOutSourceData
+			</result>
+			<result name="addOutSourceData" type="tiles">addOutSourceData</result>
+			<result name="saveOutSourceData" type="redirect">showallOutSourceDataMaster
+			</result>
+			<result name="deletedOutSourceData" type="redirect">showallOutSourceDataMaster
+			</result>
+			<result name="editOutSourceData" type="tiles">editOutSourceData
+			</result>
+			<result name="updateOutSourceData" type="redirect">showallOutSourceDataMaster
+			</result>
+			<result name="showAllMedicineTemplate" type="tiles">showAllMedicineTemplate
+			</result>
+			<result name="deleteMedicineTemplate" type="redirect">showallMedicineTemplateMaster
+			</result>
+			<result name="showallFeedackTemplate" type="tiles">showallFeedackTemplate
+			</result>
+			<result name="addfeedback" type="tiles">addfeedback</result>
+			<result name="saveFeedbackTemplate" type="redirect">showallFeedackTemplateMaster
+			</result>
+			<result name="editFeedBack" type="tiles">editFeedBack</result>
+			<result name="updateFeedBack" type="redirect">showallFeedackTemplateMaster
+			</result>
+			<result name="deleteFeedBack" type="redirect">showallFeedackTemplateMaster
+			</result>
+			<!-- Akash 20 July 2018 share charge setup -->
+			<result name="showallsharablecharge" type="tiles">showallsharablecharge
+			</result>
+			<result name="generatetra" type="redirect">CityMaster</result>
+			<!-- Lokesh 1-8-18 -->
+			<result name="allvaccinationlist" type="tiles">allvaccinationlist
+			</result>
+			<result name="addvacinationmstr" type="tiles">addvacinationmstr
+			</result>
+			<result name="updatevacinationmster" type="redirect">allvaccinationlistMaster
+			</result>
+			<result name="deletevacinationmstr" type="redirect">allvaccinationlistMaster
+			</result>
+			<result name="editvacinationmstr" type="tiles">editvacinationmstr
+			</result>
+			<result name="savevaccinationmaster" type="redirect">allvaccinationlistMaster
+			</result>
+			<result name="notsavevaccinationmaster" type="redirect">addvacinationmstrMaster
+			</result>
+			
+			<result name="listdosage" type="tiles">listdosage
+			</result>
+			<result name="savedosage" type="redirect">listdosageMaster
+			</result>
+			<result name="adddosage" type="tiles">adddosage
+			</result>
+
+			<!--clinical notes -->
+			<result name="addclinicalnotesmstr" type="tiles">addclinicalnotesmstr
+			</result>
+			<result name="deleteclinicalnotesmstr" type="redirect">listclinicalnotesmsterMaster
+			</result>
+			<result name="listclinicalnotesmster" type="tiles">listclinicalnotesmster
+			</result>
+			<result name="saveclinicalnotesmstr" type="redirect">listclinicalnotesmsterMaster
+			</result>
+			<result name="editclinicalnotes" type="tiles">editclinicalnotes
+			</result>
+			<result name="updateclinicalnotes" type="redirect">listclinicalnotesmsterMaster
+			</result>
+
+			<result name="addclinicalproblemmster" type="tiles">addclinicalproblemmster
+			</result>
+			<result name="deleteclinicalproblemmster" type="redirect">listclinicalproblemmsterMaster
+			</result>
+			<result name="listclinicalproblemmster" type="tiles">listclinicalproblemmster
+			</result>
+			<result name="saveclinicalproblemmstr" type="redirect">listclinicalproblemmsterMaster
+			</result>
+			<result name="editclinicalproblem" type="tiles">editclinicalproblem
+			</result>
+			<result name="updateclinicalProblem" type="redirect">listclinicalproblemmsterMaster
+			</result>
+
+			<result name="addclinicalintervation" type="tiles">addclinicalintervation
+			</result>
+			<result name="deleteclinicalintervation" type="redirect">listclinicalintervationMaster
+			</result>
+			<result name="listclinicalintervation" type="tiles">listclinicalintervation
+			</result>
+			<result name="saveclinicalintervationmstr" type="redirect">listclinicalintervationMaster
+			</result>
+			<result name="editclinicalintervation" type="tiles">editclinicalintervation
+			</result>
+			<result name="updateclinicalIntervation" type="redirect">listclinicalintervationMaster
+			</result>
+			<result name="addremark" type="tiles">addremark</result>
+			<result name="listremarks" type="tiles">listremarks</result>
+			<result name="saveremark" type="redirect">listremarksMaster</result>
+
+			<result name="listtaxes" type="tiles">listtaxes</result>
+			<result name="addtoTaxmaster" type="tiles">addtoTaxmaster</result>
+			<result name="edittaxmaster" type="tiles">edittaxmaster</result>
+			<result name="updatetax" type="redirect">listtaxesMaster</result>
+			<result name="deletetax" type="redirect">listtaxesMaster</result>
+			<result name="savedtax" type="redirect">listtaxesMaster</result>
+				
+			<result name="listmfg" type="tiles">listmfg</result>
+			<result name="addmfg" type="tiles">addmfg</result>
+			<result name="editmfg" type="tiles">editmfg</result>
+			<result name="updatemfg" type="redirect">listmfgMaster</result>
+			<result name="deletemfg" type="redirect">listmfgMaster</result>
+			<result name="savedmfg" type="redirect">listmfgMaster</result>	
+			
+			<!--SMS TEMPLATE  -->
+			<result name="listsms" type="tiles">listsms</result>
+			<result name="addsms" type="tiles">addsms</result>
+			<result name="editsms" type="tiles">editsms</result>
+			<result name="updatesms" type="redirect">listsmsMaster</result>
+			<result name="deletesms" type="redirect">listsmsMaster</result>
+			<result name="savedsms" type="redirect">listsmsMaster</result>	
+			
+			<!-- Generic Master -->
+			<result name="genericnamelist" type="tiles">genericnamelist</result>
+			<result name="addgenericname" type="tiles">addgenericname</result>
+			<result name="savegenericname" type="redirect">genericnameMaster</result>	
+			
+			<!--outsource invst charges  -->
+			<result name="listoutsourcerate" type="tiles">listoutsourcerate</result>
+			<result name="addoutsourcerate" type="tiles">addoutsourcerate</result>
+			<result name="editoutsourcerate" type="tiles">editoutsourcerate</result>
+			<result name="updateoutsourcerate" type="redirect">listoutsourcerateMaster</result>
+			<result name="deleteoutsourcerate" type="redirect">listoutsourcerateMaster</result>
+			<result name="savedoutsourcerate" type="redirect">listoutsourcerateMaster</result>	
+		</action>
+
+		<action name="*Nabh" method="{1}"
+			class="com.apm.Nabh.web.action.NabhAction">
+			<result name="success" type="tiles">nabhdashboard</result>
+			<result name="kpinabh" type="tiles">kpinabh</result>
+			<result name="accreditationtracker" type="tiles">accreditationtracker
+			</result>
+			<result name="committee" type="tiles">nabhcommittee</result>
+			<result name="units" type="tiles">nabhunits</result>
+			<result name="tasks" type="tiles">nabhtasks</result>
+			<result name="allResourceLiberary" type="tiles">nabhallResourceLiberary
+			</result>
+			<result name="postersandVisuals" type="tiles">nabhpostersandVisuals
+			</result>
+			<result name="meetings" type="tiles">nabhmeetings</result>
+			<result name="filesubmission" type="tiles">nabhfilesubmission</result>
+			<result name="roadmapandscope" type="tiles">roadmapandscope</result>
+			<result name="redirecttoexecute" type="redirect">Nabh</result>
+			<result name="hisvideotutorial" type="tiles">hisvideotutorial</result>
+			<result name="redirecttovideotutorial" type="redirect">hisvideotutorialNabh</result>
+		</action>
+
+		<action name="*Smartaccount" method="{1}"
+			class="com.apm.Accounts.web.action.SmartAccountAction">
+			<result name="success" type="tiles">smartaccount</result>
+		</action>
+		<action name="*Commonnew" method="{1}"
+			class="com.apm.Ipd.web.action.CommonIpdAction">
+			<result name="dischargesaved" type="tiles">dischargesaved</result>
+			<result name="printdischarge" type="tiles">printdischarge</result>
+			<result name="discharge" type="tiles">dischargeform</result>
+
+			<result name="newdischargeform" type="tiles">newdischargeform</result>
+			<result name="patientbarcode" type="tiles">patientbarcode</result>
+			<result name="all_relesed_notes" type="tiles">all_relesed_notes</result>
+			<result name="saverelesed_notes" type="redirect">all_relesed_notesCommonnew</result>
+			<result name="new_aureus_discard" type="tiles">new_aureus_discard</result>
+			<result name="print_aureus_dcard" type="tiles">print_aureus_dcard</result>
+			<result name="ipddashboard" type="redirect">IpdDashboard?action=0</result>
+			<result name="dishchargedashboard" type="redirect">InitialDischarge</result>
+		</action>
+
+		<action name="*PharmacyAjax" method="{1}"
+			class="com.apm.Pharmacy.web.action.PharmacyAjaxAction">
+			<result name="success" type="tiles">viewpharmacy</result>
+			<result name="redirectbill" type="redirect"> viewbillPharmacy</result>
+			<result name="errorpage" type="tiles">errorpage</result>
+			<result name="dailysalereport" type="tiles">dailysalereport</result>
+			<result name="priscagainstsalereport" type="tiles">priscagainstsalereport
+			</result>
+		</action>
+		<action name="*Vaccination" method="{1}"
+			class="com.apm.DiaryManagement.web.action.VaccinationAction">
+			<result name="dashboard" type="tiles">vaccinedashboard</result>
+		</action>	
+
+	</package>
+</struts>
