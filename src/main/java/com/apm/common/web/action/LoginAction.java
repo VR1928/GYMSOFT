@@ -254,11 +254,13 @@ public class LoginAction extends BaseAction implements ModelDriven<BranchForm> {
 		//EmailConfigure Setting
 		EmailTemplateDAO emailTemplateDAO = new JDBCEmailTemplateDAO(connection);
     	EmailTemplate emailTemplate = new EmailTemplate();
-    	emailTemplate = emailTemplateDAO.getEmailConfigureDetails(clinic.getId());
-    	loginInfo.setEmailConfigureId(emailTemplate.getEmailConfigureId());
-    	loginInfo.setEmailUserName(emailTemplate.getEmailUserName());
-    	loginInfo.setEmailPassword(emailTemplate.getEmailPassword());
-		loginInfo.setEmailHostName(emailTemplate.getEmailHostName());
+		/*
+		 * emailTemplate = emailTemplateDAO.getEmailConfigureDetails(clinic.getId());
+		 * loginInfo.setEmailConfigureId(emailTemplate.getEmailConfigureId());
+		 * loginInfo.setEmailUserName(emailTemplate.getEmailUserName());
+		 * loginInfo.setEmailPassword(emailTemplate.getEmailPassword());
+		 * loginInfo.setEmailHostName(emailTemplate.getEmailHostName());
+		 */
 		
 		//Menu Setting
 		Clinic clinic2 = new Clinic();
@@ -427,6 +429,7 @@ public class LoginAction extends BaseAction implements ModelDriven<BranchForm> {
 		    
 		    UserProfileDAO userProfileDAO = new JDBCUserProfileDAO(connection);
 		    //MIS access
+			
 			  Access accessmis=userProfileDAO.getMisRoleaccess(loginInfo.getUserId());
 			  
 			  loginInfo.setPractioner_share(accessmis.isPractioner_share());
@@ -450,13 +453,17 @@ public class LoginAction extends BaseAction implements ModelDriven<BranchForm> {
 			  loginInfo.setPatient_condition_list(accessmis.isPatient_condition_list());
 			  loginInfo.setDtr_report(accessmis.isDtr_report());
 			  loginInfo.setPatientlist(accessmis.isPatientlist());
-			  loginInfo.setCurrent_track_with_no_future_ampts(accessmis.isCurrent_track_with_no_future_ampts());
-			  loginInfo.setNo_appointment_activity_record(accessmis.isNo_appointment_activity_record());
-			  loginInfo.setDna_with_no_future_appointment(accessmis.isDna_with_no_future_appointment());
+			  loginInfo.setCurrent_track_with_no_future_ampts(accessmis.
+			  isCurrent_track_with_no_future_ampts());
+			  loginInfo.setNo_appointment_activity_record(accessmis.
+			  isNo_appointment_activity_record());
+			  loginInfo.setDna_with_no_future_appointment(accessmis.
+			  isDna_with_no_future_appointment());
 			  loginInfo.setNo_activity_record(accessmis.isNo_activity_record());
 			  loginInfo.setDna_analysiis(accessmis.isDna_analysiis());
 			  loginInfo.setAppointment_kept_vs_dna(accessmis.isAppointment_kept_vs_dna());
-			  loginInfo.setTreatment_state_by_refferal(accessmis.isTreatment_state_by_refferal());
+			  loginInfo.setTreatment_state_by_refferal(accessmis.
+			  isTreatment_state_by_refferal());
 			  loginInfo.setReturning_patients(accessmis.isReturning_patients());
 			  loginInfo.setOutcome_discharge(accessmis.isOutcome_discharge());
 			  loginInfo.setDeathreport(accessmis.isDeathreport());
@@ -481,9 +488,10 @@ public class LoginAction extends BaseAction implements ModelDriven<BranchForm> {
 			  loginInfo.setIpd_daily_discharge(accessmis.isIpd_daily_discharge());
 			  loginInfo.setOpd_ipd_cancel_refund(accessmis.isOpd_ipd_cancel_refund());
 			  loginInfo.setIpd_bill_register(accessmis.isIpd_bill_register());
-			  loginInfo.setService_register_details(accessmis.isService_register_details());
-			  loginInfo.setCancel_invoice_report(accessmis.isCancel_invoice_report());
+			  loginInfo.setService_register_details(accessmis.isService_register_details())
+			  ; loginInfo.setCancel_invoice_report(accessmis.isCancel_invoice_report());
 			  loginInfo.setKPI_report(accessmis.isKPI_report());
+			 
 			  
 		    
 		    
@@ -505,23 +513,24 @@ public class LoginAction extends BaseAction implements ModelDriven<BranchForm> {
 		
 		int duserid  = userProfileDAO.getDiaryUserId(loginInfo.getUserId());
 		UserProfile userProfile = userProfileDAO.getUserprofileDetails(duserid);
-		loginInfo.setPrisc_new_req_access(userProfile.isPrisc_new_req_access());
-		loginInfo.setDirect_refund_disc(userProfile.isDirect_refund_disc());
-		loginInfo.setTreatment_episode_acc(userProfile.isTreatmentacc());
-		loginInfo.setSupplier_add(userProfile.isSupplier_add());
-		loginInfo.setAdjustmentaccess(userProfile.isAdjustmentaccess());
-		loginInfo.setAcaccess(userProfile.getAcaccess());
-		loginInfo.setEdit_paypo(userProfile.isEdit_paypo());
-		loginInfo.setEdit_invst_charge(userProfile.isEdit_invst_charge());
-		loginInfo.setStock_log(clinic2.isStock_log());
-		//lokesh
-		loginInfo.setFullname(userProfile.getFullname());
-		loginInfo.setBdaysms(clinic2.isBdaysms());
-		loginInfo.setImmusms(clinic2.isImmusms());
-		loginInfo.setF_diagnosis_discharge(clinic2.isF_diagnosis_discharge());
-		loginInfo.setSeq_no_gen(clinic2.isSeq_no_gen());
-		loginInfo.setRemoveprocurement(clinic2.isRemoveprocurement());
-		loginInfo.setModify_disc(clinic2.isModify_disc());
+		
+		  loginInfo.setPrisc_new_req_access(userProfile.isPrisc_new_req_access());
+		  loginInfo.setDirect_refund_disc(userProfile.isDirect_refund_disc());
+		  loginInfo.setTreatment_episode_acc(userProfile.isTreatmentacc());
+		  loginInfo.setSupplier_add(userProfile.isSupplier_add());
+		  loginInfo.setAdjustmentaccess(userProfile.isAdjustmentaccess());
+		  loginInfo.setAcaccess(userProfile.getAcaccess());
+		  loginInfo.setEdit_paypo(userProfile.isEdit_paypo());
+		  loginInfo.setEdit_invst_charge(userProfile.isEdit_invst_charge());
+		  loginInfo.setStock_log(clinic2.isStock_log()); //lokesh
+		  loginInfo.setFullname(userProfile.getFullname());
+		  loginInfo.setBdaysms(clinic2.isBdaysms());
+		  loginInfo.setImmusms(clinic2.isImmusms());
+		  loginInfo.setF_diagnosis_discharge(clinic2.isF_diagnosis_discharge());
+		  loginInfo.setSeq_no_gen(clinic2.isSeq_no_gen());
+		  loginInfo.setRemoveprocurement(clinic2.isRemoveprocurement());
+		  loginInfo.setModify_disc(clinic2.isModify_disc());
+		 
 		loginInfo.setUserMobileNo(userProfile.getMobile());
 		//shubham
 		loginInfo.setSmsVisitingConslt(clinic2.isSmsVisitingConslt());
@@ -532,64 +541,72 @@ public class LoginAction extends BaseAction implements ModelDriven<BranchForm> {
 		
 		//Access access = userProfileDAO.getUserRoleAccess(loginInfo.getUserId());
 		loginInfo.setMedicine_barcode(access.isMedicine_barcode());
-		loginInfo.setPharm_print_backdate(access.isPharm_print_backdate());
-		loginInfo.setDiaryManagement(access.isDiarymanagement());
-		loginInfo.setAppointmentBooking(access.isAppointmentbooking());
-		loginInfo.setBasicFinance(access.isBasicfinance());
-		loginInfo.setFullFinance(access.isFullfinance());
-		loginInfo.setMedicalRecord(access.isMedicalrecord());
-		loginInfo.setCommunication(access.isCommunication());
-		loginInfo.setReport(access.isReport());
-		loginInfo.setAssessmentForms(access.isAssessmentForm());
-		loginInfo.setManageclient(access.isManageclient());
-		loginInfo.setManageclinic(access.isManageclinic());
-		loginInfo.setManagemaster(access.isManagemaster());
-		loginInfo.setManageprisc(access.isManageprisc());
-		loginInfo.setManageinvst(access.isManageinvst());
-		loginInfo.setManageipd(access.isManageipd());
-		loginInfo.setJobTitle(userProfile.getJobtitle());
-		loginInfo.setManageopd(access.isManageopd());
-		loginInfo.setManageemr(access.isManageemr());
-		loginInfo.setExpences(access.isExpences());
-		loginInfo.setPayroll(access.isPayroll());
-		loginInfo.setBloodbak(access.isBloodbak());
-		loginInfo.setInventory(access.isInventory());
-		loginInfo.setDischarge(access.isDischarge());
-		loginInfo.setManagemis(access.isManagemis());
-		loginInfo.setApmtfinder(access.isApmtfinder());
-		loginInfo.setPacks(access.isPacks());
-		loginInfo.setInvestigation_chart(access.isInvestigation_chart());
-		loginInfo.setSheduler(access.isSheduler());
-		loginInfo.setHousekeeping(access.isHousekeeping());
-		loginInfo.setDietery(access.isDietery());
-		loginInfo.setCafeteria(access.isCafeteria());
-		loginInfo.setPackages(access.isPackages());
-		loginInfo.setAmbulance(access.isAmbulance());
-		loginInfo.setBank_deposite(access.isBank_deposite());
-		loginInfo.setAccount_reconcilation(access.isAccount_reconcilation());
-		loginInfo.setCathlab(access.isCathlab());
-		//set  ot, casualty, pharmacy, mrd, marketing, voice_recorder in main dashboard
-		loginInfo.setOt(access.isOt());
-		loginInfo.setCasualty(access.isCasualty());
-		loginInfo.setMrd(access.isMrd());
-		loginInfo.setMarketing(access.isMarketing());
-		loginInfo.setVoice_recording(access.isVoice_recording());
-		loginInfo.setIndent(access.isIndent());
-		loginInfo.setPharmacy(access.isPharmacy());
-		loginInfo.setInvestigation_approve(access.isInvestigation_approve());
-		loginInfo.setDaily_opd(access.isDaily_opd());
-		loginInfo.setIndent_approve(access.isIndent_approve());
-		loginInfo.setTpa(access.isTpa());
-		loginInfo.setNabh_quality(access.isNabh_quality());
-		loginInfo.setDoctor_opd(access.isDoctor_opd());
-		loginInfo.setInvst_collect(access.isInvst_collect());
-		loginInfo.setToken_display(access.isToken_display());
-		loginInfo.setAdd_medicine(individualaccess.isAdd_medicine());
-		loginInfo.setMyhr(access.isMyhr());
-		loginInfo.setDaycare(access.isDaycare());
-		loginInfo.setEmergency_lbl(access.isEmergency_lbl());
-		//refund and discount dashboard
-		loginInfo.setRefund_dashboard(userProfile.isRefund_dashboard());
+		
+		
+		  loginInfo.setPharm_print_backdate(access.isPharm_print_backdate());
+		  loginInfo.setDiaryManagement(access.isDiarymanagement());
+		  loginInfo.setAppointmentBooking(access.isAppointmentbooking());
+		 
+		
+		  loginInfo.setBasicFinance(access.isBasicfinance());
+		  loginInfo.setFullFinance(access.isFullfinance());
+		  loginInfo.setMedicalRecord(access.isMedicalrecord());
+		  loginInfo.setCommunication(access.isCommunication());
+		 
+		  loginInfo.setReport(access.isReport());
+		 loginInfo.setAssessmentForms(access.isAssessmentForm());
+			
+			  loginInfo.setManageclient(access.isManageclient());
+			  loginInfo.setManageclinic(access.isManageclinic());
+			  loginInfo.setManagemaster(access.isManagemaster());
+				
+				  loginInfo.setManageprisc(access.isManageprisc());
+				  loginInfo.setManageinvst(access.isManageinvst());
+				  loginInfo.setManageipd(access.isManageipd());
+				 
+				
+			loginInfo.setJobTitle(userProfile.getJobtitle());
+			loginInfo.setManageopd(access.isManageopd());
+				 
+			  loginInfo.setManageemr(access.isManageemr());
+			  loginInfo.setExpences(access.isExpences());
+			  loginInfo.setPayroll(access.isPayroll());
+			  loginInfo.setBloodbak(access.isBloodbak());
+			  loginInfo.setInventory(access.isInventory());
+			  loginInfo.setDischarge(access.isDischarge());
+			  loginInfo.setManagemis(access.isManagemis());
+			  loginInfo.setApmtfinder(access.isApmtfinder());
+			  loginInfo.setPacks(access.isPacks());
+			 
+		  loginInfo.setInvestigation_chart(access.isInvestigation_chart());
+		  loginInfo.setSheduler(access.isSheduler());
+		  loginInfo.setHousekeeping(access.isHousekeeping());
+		  loginInfo.setDietery(access.isDietery());
+		  loginInfo.setCafeteria(access.isCafeteria());
+		  loginInfo.setPackages(access.isPackages());
+		  loginInfo.setAmbulance(access.isAmbulance());
+		  loginInfo.setBank_deposite(access.isBank_deposite());
+		  loginInfo.setAccount_reconcilation(access.isAccount_reconcilation());
+		  loginInfo.setCathlab(access.isCathlab()); //set ot, casualty, pharmacy, mrd,
+		//  marketing, voice_recorder in main dashboard loginInfo.setOt(access.isOt());
+		  loginInfo.setCasualty(access.isCasualty()); loginInfo.setMrd(access.isMrd());
+		  loginInfo.setMarketing(access.isMarketing());
+		  loginInfo.setVoice_recording(access.isVoice_recording());
+		  loginInfo.setIndent(access.isIndent());
+		  loginInfo.setPharmacy(access.isPharmacy());
+		  loginInfo.setInvestigation_approve(access.isInvestigation_approve());
+		  loginInfo.setDaily_opd(access.isDaily_opd());
+		  loginInfo.setIndent_approve(access.isIndent_approve());
+		  loginInfo.setTpa(access.isTpa());
+		  loginInfo.setNabh_quality(access.isNabh_quality());
+		  loginInfo.setDoctor_opd(access.isDoctor_opd());
+		  loginInfo.setInvst_collect(access.isInvst_collect());
+		  loginInfo.setToken_display(access.isToken_display());
+		  loginInfo.setAdd_medicine(individualaccess.isAdd_medicine());
+		  loginInfo.setMyhr(access.isMyhr()); loginInfo.setDaycare(access.isDaycare());
+		  loginInfo.setEmergency_lbl(access.isEmergency_lbl()); //refund and discount
+		 // dashboard loginInfo.setRefund_dashboard(userProfile.isRefund_dashboard());
+		 
 		loginInfo.setShowinvestigation(userProfile.isShowinvestigation());
 		
 		if(userProfile.getJobtitle().equals("Admin")){
@@ -599,8 +616,10 @@ public class LoginAction extends BaseAction implements ModelDriven<BranchForm> {
 		
 		
 		//get pacs ip address
-		String pacsip = clinicDAO.getPacsIpAddress(loginInfo.getClinicUserid());
-		loginInfo.setPacsip(pacsip);
+		
+		  String pacsip = clinicDAO.getPacsIpAddress(loginInfo.getClinicUserid());
+		  loginInfo.setPacsip(pacsip);
+		 
 		
 		
 		
@@ -645,49 +664,54 @@ public class LoginAction extends BaseAction implements ModelDriven<BranchForm> {
 		
 		
 		//set opdrollaccess
-		Access opdaccess = userProfileDAO.getopdRollAccess(userProfile.getJobtitle());
-		loginInfo.setOpd_modify(opdaccess.isOpd_modify());
-		loginInfo.setOpd_cancel(opdaccess.isOpd_cancel());
-		loginInfo.setOpd_prescription(opdaccess.isOpd_prescription());
-		loginInfo.setOpd_investigation(opdaccess.isOpd_investigation());
-		loginInfo.setOpd_ot(opdaccess.isOpd_ot());
-		loginInfo.setOpd_viewaccount(opdaccess.isOpd_viewaccount());
-		loginInfo.setOpd_apmtfinder(opdaccess.isOpd_apmtfinder());
-		loginInfo.setOpd_advandref(opdaccess.isOpd_advandref());
-		loginInfo.setOpd_modifydiagnosis(opdaccess.isOpd_modifydiagnosis());
-		loginInfo.setOpd_editpatient(opdaccess.isOpd_editpatient());
-		loginInfo.setOpd_log(opdaccess.isOpd_log());
-		loginInfo.setOpd_emr(opdaccess.isOpd_emr());
-		loginInfo.setOpd_assessmentform(opdaccess.isOpd_assessmentform());
-		loginInfo.setOpd_treatment(opdaccess.isOpd_treatment());
-		loginInfo.setOpd_addcharges(opdaccess.isOpd_addcharges());
-		loginInfo.setOpd_createinvoice(opdaccess.isOpd_createinvoice());
-		loginInfo.setOpd_recordpayment(opdaccess.isOpd_recordpayment());
+		/*
+		 * Access opdaccess =
+		 * userProfileDAO.getopdRollAccess(userProfile.getJobtitle());
+		 * loginInfo.setOpd_modify(opdaccess.isOpd_modify());
+		 * loginInfo.setOpd_cancel(opdaccess.isOpd_cancel());
+		 * loginInfo.setOpd_prescription(opdaccess.isOpd_prescription());
+		 * loginInfo.setOpd_investigation(opdaccess.isOpd_investigation());
+		 * loginInfo.setOpd_ot(opdaccess.isOpd_ot());
+		 * loginInfo.setOpd_viewaccount(opdaccess.isOpd_viewaccount());
+		 * loginInfo.setOpd_apmtfinder(opdaccess.isOpd_apmtfinder());
+		 * loginInfo.setOpd_advandref(opdaccess.isOpd_advandref());
+		 * loginInfo.setOpd_modifydiagnosis(opdaccess.isOpd_modifydiagnosis());
+		 * loginInfo.setOpd_editpatient(opdaccess.isOpd_editpatient());
+		 * loginInfo.setOpd_log(opdaccess.isOpd_log());
+		 * loginInfo.setOpd_emr(opdaccess.isOpd_emr());
+		 * loginInfo.setOpd_assessmentform(opdaccess.isOpd_assessmentform());
+		 * loginInfo.setOpd_treatment(opdaccess.isOpd_treatment());
+		 * loginInfo.setOpd_addcharges(opdaccess.isOpd_addcharges());
+		 * loginInfo.setOpd_createinvoice(opdaccess.isOpd_createinvoice());
+		 * loginInfo.setOpd_recordpayment(opdaccess.isOpd_recordpayment());
+		 */
 		
 		
 		
-		Access ipdaccess  = userProfileDAO.getipdaccesss(userProfile.getJobtitle());
-		
-		loginInfo.setIpd_admission(ipdaccess.isIpd_admission());
-		loginInfo.setIpd_declaration(ipdaccess.isIpd_declaration());
-		loginInfo.setIpd_log(ipdaccess.isIpd_log());
-		loginInfo.setIpd_forms(ipdaccess.isIpd_forms());
-		loginInfo.setIpd_discharge(ipdaccess.isIpd_discharge());
-		loginInfo.setIpd_emr(ipdaccess.isIpd_emr());
-		loginInfo.setIpd_prescription(ipdaccess.isIpd_prescription());
-		loginInfo.setIpd_investigation(ipdaccess.isIpd_investigation());
-		loginInfo.setIpd_reqconsultant(ipdaccess.isIpd_reqconsultant());
-		loginInfo.setIpd_nursingcare(ipdaccess.isIpd_nursingcare());
-		loginInfo.setIpd_reqblood(ipdaccess.isIpd_reqblood());
-		loginInfo.setIpd_autocare(ipdaccess.isIpd_autocare());
-		loginInfo.setIpd_treatmentlog(ipdaccess.isIpd_treatmentlog());
-		loginInfo.setIpd_addcharges(ipdaccess.isIpd_addcharges());
-		loginInfo.setIpd_createinvoice(ipdaccess.isIpd_createinvoice());
-		loginInfo.setIpd_recordpayment(ipdaccess.isIpd_recordpayment());
-		loginInfo.setIpd_advandref(ipdaccess.isIpd_advandref());
-		loginInfo.setIpd_viewaccount(ipdaccess.isIpd_viewaccount());
-		loginInfo.setIpd_packages(ipdaccess.isIpd_packages());
-		loginInfo.setCancel_admsn(ipdaccess.isCancel_admsn());
+		/*
+		 * Access ipdaccess = userProfileDAO.getipdaccesss(userProfile.getJobtitle());
+		 * 
+		 * loginInfo.setIpd_admission(ipdaccess.isIpd_admission());
+		 * loginInfo.setIpd_declaration(ipdaccess.isIpd_declaration());
+		 * loginInfo.setIpd_log(ipdaccess.isIpd_log());
+		 * loginInfo.setIpd_forms(ipdaccess.isIpd_forms());
+		 * loginInfo.setIpd_discharge(ipdaccess.isIpd_discharge());
+		 * loginInfo.setIpd_emr(ipdaccess.isIpd_emr());
+		 * loginInfo.setIpd_prescription(ipdaccess.isIpd_prescription());
+		 * loginInfo.setIpd_investigation(ipdaccess.isIpd_investigation());
+		 * loginInfo.setIpd_reqconsultant(ipdaccess.isIpd_reqconsultant());
+		 * loginInfo.setIpd_nursingcare(ipdaccess.isIpd_nursingcare());
+		 * loginInfo.setIpd_reqblood(ipdaccess.isIpd_reqblood());
+		 * loginInfo.setIpd_autocare(ipdaccess.isIpd_autocare());
+		 * loginInfo.setIpd_treatmentlog(ipdaccess.isIpd_treatmentlog());
+		 * loginInfo.setIpd_addcharges(ipdaccess.isIpd_addcharges());
+		 * loginInfo.setIpd_createinvoice(ipdaccess.isIpd_createinvoice());
+		 * loginInfo.setIpd_recordpayment(ipdaccess.isIpd_recordpayment());
+		 * loginInfo.setIpd_advandref(ipdaccess.isIpd_advandref());
+		 * loginInfo.setIpd_viewaccount(ipdaccess.isIpd_viewaccount());
+		 * loginInfo.setIpd_packages(ipdaccess.isIpd_packages());
+		 * loginInfo.setCancel_admsn(ipdaccess.isCancel_admsn());
+		 */
 		
 		//account access
 		Access accaess  = userProfileDAO.getAccountaccesss(userProfile.getJobtitle());
@@ -702,17 +726,19 @@ public class LoginAction extends BaseAction implements ModelDriven<BranchForm> {
 		loginInfo.setCash_desk(accaess.isCash_desk());
 		loginInfo.setRefund(accaess.isRefund());
 		
-		Access emraccess  = userProfileDAO.getEmraccesss(userProfile.getJobtitle());
-		loginInfo.setEmr_docs(emraccess.isEmr_docs());
-		loginInfo.setEmr_history(emraccess.isEmr_history());
-		loginInfo.setEmr_medicine(emraccess.isEmr_medicine());
-		loginInfo.setEmr_investigation(emraccess.isEmr_investigation());
-		loginInfo.setEmr_pacs(emraccess.isEmr_pacs());
-		loginInfo.setEmr_media(emraccess.isEmr_media());
-		loginInfo.setEmr_update(emraccess.isEmr_update());
-		loginInfo.setEmr_print(emraccess.isEmr_print());
-		loginInfo.setEmr_edit(emraccess.isEmr_edit());
-		loginInfo.setEmr_delete(emraccess.isEmr_delete());
+		/*
+		 * Access emraccess = userProfileDAO.getEmraccesss(userProfile.getJobtitle());
+		 * loginInfo.setEmr_docs(emraccess.isEmr_docs());
+		 * loginInfo.setEmr_history(emraccess.isEmr_history());
+		 * loginInfo.setEmr_medicine(emraccess.isEmr_medicine());
+		 * loginInfo.setEmr_investigation(emraccess.isEmr_investigation());
+		 * loginInfo.setEmr_pacs(emraccess.isEmr_pacs());
+		 * loginInfo.setEmr_media(emraccess.isEmr_media());
+		 * loginInfo.setEmr_update(emraccess.isEmr_update());
+		 * loginInfo.setEmr_print(emraccess.isEmr_print());
+		 * loginInfo.setEmr_edit(emraccess.isEmr_edit());
+		 * loginInfo.setEmr_delete(emraccess.isEmr_delete());
+		 */
 		
 		//client access
 		Access clientaccaess  = userProfileDAO.getClientAccesss(userProfile.getJobtitle());
@@ -767,16 +793,15 @@ public class LoginAction extends BaseAction implements ModelDriven<BranchForm> {
 		
 
 		//vaccination sms
-		if(loginInfo.isImmusms()){
-			DateFormat dateFormat3 = new SimpleDateFormat("yyyy-MM-dd");
-			Calendar cal3 = Calendar.getInstance();
-			cal3.add(Calendar.DATE, 1); 
-			String Date1= dateFormat3.format(cal3.getTime());
-			notAvailableSlotDAO.getAllClientVaccinations(Date1, loginInfo);
-		}
-		  /*SmsService s = new SmsService();
-		  String msg="akash https://localhost:8080/HISLIVE/discountapproveMainDashBoard?userid=aureusamp;clinicuserid=aureusamp;discid=4170amp;invoiceid=32913";
-		  s.sendSms(msg, "9764434837", loginInfo, new EmailLetterLog());*/
+		/*
+		 * if(loginInfo.isImmusms()){ DateFormat dateFormat3 = new
+		 * SimpleDateFormat("yyyy-MM-dd"); Calendar cal3 = Calendar.getInstance();
+		 * cal3.add(Calendar.DATE, 1); String Date1= dateFormat3.format(cal3.getTime());
+		 * notAvailableSlotDAO.getAllClientVaccinations(Date1, loginInfo); } SmsService
+		 * s = new SmsService(); String
+		 * msg="akash https://localhost:8080/HISLIVE/discountapproveMainDashBoard?userid=aureusamp;clinicuserid=aureusamp;discid=4170amp;invoiceid=32913"
+		 * ; s.sendSms(msg, "9764434837", loginInfo, new EmailLetterLog());
+		 */
 		  
 		  //edit charges access
 		  UserProfile access2=userProfileDAO.getMainAccessByUserid(loginInfo.getUserId());
@@ -794,6 +819,8 @@ public class LoginAction extends BaseAction implements ModelDriven<BranchForm> {
 		 loginInfo.setEditchargesacs(editchargesacs);
 		  String fromtime=clinic2.getFromtime();
 		  String totime=clinic2.getTotime();
+		 
+		 
 		  
 		  boolean misaccess=false;
 		  if(fromtime!=null){
@@ -826,10 +853,11 @@ public class LoginAction extends BaseAction implements ModelDriven<BranchForm> {
 		  }
 		    loginInfo.setMisaccess(misaccess);
 		  
-		  if(branchForm.getActiontype().equals("doctormob")){
-			  
-			  return "doctormob";
-		  }
+			/*
+			 * if(branchForm.getActiontype().equals("doctormob")){
+			 * 
+			 * return "doctormob"; }
+			 */
 		 
 	
 		}catch (Exception e) {

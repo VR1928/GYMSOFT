@@ -1246,7 +1246,7 @@ try{
 			ResultSet rs = preparedStatement.executeQuery();
 			if(rs.next()){
 				access.setDiarymanagement(rs.getBoolean(1));
-				access.setAppointmentbooking(rs.getBoolean(2));
+				access.setAppointmentbooking(rs.getBoolean(2));	
 				access.setBasicfinance(rs.getBoolean(3));
 				access.setFullfinance(rs.getBoolean(4));
 				access.setMedicalrecord(rs.getBoolean(5));
@@ -2753,7 +2753,7 @@ try{
 		     sb.append(",");
 		    }
 		   }
-		   sb.append(" from mis_role_access where users='"+userid+"'");
+		   sb.append(" * from mis_role_access where users='"+userid+"'");
 		   
 		   String sql=  sb.toString();
 		   ps= connection.prepareStatement(sql);
