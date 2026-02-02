@@ -88,7 +88,7 @@ import com.apm.common.web.common.helper.LoginInfo;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
+
 
 public class SummaryReportAction extends BaseAction implements Preparable, ModelDriven<SummaryReportForm> {
 

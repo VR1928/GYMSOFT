@@ -99,7 +99,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 import atg.taglib.json.util.JSONObject;
-import sun.nio.cs.UnicodeEncoder;
+
 
 public class CommonIpdAction extends BaseAction implements ModelDriven<IpdForm>, Preparable {
 

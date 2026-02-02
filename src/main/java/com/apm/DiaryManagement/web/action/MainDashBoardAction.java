@@ -239,14 +239,14 @@ public class MainDashBoardAction extends BaseAction implements ModelDriven<MisDa
 			
 			Connection connection2= null;
 			Class.forName("com.mysql.jdbc.Driver");
-			connection2=DriverManager.getConnection("jdbc:mysql://139.162.51.34:3306/demo","pranams","6qxi5x&)~XBZ");
-			ClinicDAO clinicDAO = new JDBCClinicDAO(connection);
-			int remainingdays=clinicDAO.getClinicDeactiveDays(connection2, loginInfo);
-			if(remainingdays<=0){
-				System.out.println("Zero");
-			}
-			
-			misDashboardForm.setExpirytime(remainingdays);
+			//connection2=DriverManager.getConnection("jdbc:mysql://139.162.51.34:3306/demo","pranams","6qxi5x&)~XBZ");
+			//ClinicDAO clinicDAO = new JDBCClinicDAO(connection);
+			//int remainingdays=clinicDAO.getClinicDeactiveDays(connection2, loginInfo);
+			/*
+			 * if(remainingdays<=0){ System.out.println("Zero"); }
+			 * 
+			 * misDashboardForm.setExpirytime(remainingdays);
+			 */
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();

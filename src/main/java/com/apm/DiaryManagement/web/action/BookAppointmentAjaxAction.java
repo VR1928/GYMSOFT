@@ -104,10 +104,9 @@ import com.apm.main.common.constants.Constants;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.inject.util.Function;
 import com.sun.javaws.jnl.UpdateDesc;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 
 import atg.taglib.json.util.JSONObject;
-import sun.awt.image.VolatileSurfaceManager;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -212,10 +211,9 @@ import com.apm.main.common.constants.Constants;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.inject.util.Function;
 import com.sun.javaws.jnl.UpdateDesc;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 
 import atg.taglib.json.util.JSONObject;
-import sun.awt.image.VolatileSurfaceManager;
+
 
 public class BookAppointmentAjaxAction extends BaseAction {
 
@@ -2820,10 +2818,11 @@ public class BookAppointmentAjaxAction extends BaseAction {
 				ArrayList<PackageMaster> arrayList = packageMasterDAO.getPackageFromChild(Integer.parseInt(packageid));
 				for (PackageMaster packageMaster : arrayList) {
 					completeAppointment.setManualcharge(packageMaster.getChargename());
-					if(completeAppointment.getCharges().equals(packageMaster.getCal_amount())){
-						completeAppointment.setCharges(packageMaster.getCal_amount());
-					}
-					//completeAppointment.setCharges(packageMaster.getCal_amount());
+					/*
+					 * if(completeAppointment.getCharges().equals(packageMaster.getCal_amount())){
+					 * completeAppointment.setCharges(packageMaster.getCal_amount()); }
+					 */
+					completeAppointment.setCharges(packageMaster.getCal_amount());
 					completeAppointment.setMasterchargetype(mannualcharge);
 					completeAppointment.setTpkg(packageMaster.getId());
 					int result = completeAptmDAO.saveCharge(completeAppointment, apppointmentid, loginInfo.getId());

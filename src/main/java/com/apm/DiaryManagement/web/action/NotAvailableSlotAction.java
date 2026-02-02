@@ -129,7 +129,7 @@ import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
 import atg.taglib.json.util.JSONObject;
-import sun.applet.resources.MsgAppletViewer_zh_TW;
+
 
 
 public class NotAvailableSlotAction extends BaseAction implements Preparable, ModelDriven<NotAvailableSlotForm> {

@@ -38,8 +38,7 @@ import com.apm.common.utils.Encryption;
 import com.apm.common.utils.Pagination;
 import com.apm.common.web.common.helper.Access;
 import com.apm.common.web.common.helper.LoginInfo;
-import com.sun.corba.se.impl.orbutil.graph.Node;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
+
 
 public class JDBCUserProfileDAO extends JDBCBaseDAO implements UserProfileDAO {
 

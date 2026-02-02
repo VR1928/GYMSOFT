@@ -33,7 +33,7 @@ import com.apm.common.web.common.helper.LoginInfo;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
 
-import sun.java2d.opengl.WGLGraphicsConfig;
+
 
 public class PackageMasterAction extends BaseAction implements ModelDriven<PackageMasterForm>, Preparable {
 
