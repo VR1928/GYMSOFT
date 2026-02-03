@@ -2416,7 +2416,23 @@ public class JDBCSummaryReportDAO extends JDBCBaseDAO implements SummaryReportDA
 			todate = todate+" "+"59:59:59";
 			ClientDAO clientDAO = new JDBCClientDAO(connection);
 			StringBuffer buffer = new StringBuffer();
-			buffer.append("select apm_charges_payment.id,chargeinvoiceid,apm_charges_payment.date,payment,paymode,userid,apm_charges_payment.clientid,itype,masterchargetype ");
+			/*
+			 * buffer.
+			 * append("select apm_charges_payment.id,chargeinvoiceid,apm_charges_payment.date,payment,paymode,userid,apm_charges_payment.clientid,itype,masterchargetype "
+			 * ); buffer.
+			 * append("from apm_charges_payment left join apm_charges_invoice on apm_charges_invoice.id=apm_charges_payment.chargeinvoiceid "
+			 * ); buffer.
+			 * append("left join apm_patient on apm_charges_payment.clientid=apm_patient.id "
+			 * ); buffer.
+			 * append("left join apm_invoice_type on apm_charges_invoice.itype=apm_invoice_type.id "
+			 * ); buffer.
+			 * append("left join apm_invoice_assesments on apm_invoice_assesments.invoiced = apm_charges_payment.chargeinvoiceid "
+			 * );
+			 * buffer.append("where apm_charges_payment.date between '"+fromdate+"' and '"
+			 * +todate+"' ");
+			 */
+			
+			buffer.append("select masterchargetype,invoiced,apm_invoice_assesments.user ");
 			buffer.append("from apm_charges_payment left join apm_charges_invoice on apm_charges_invoice.id=apm_charges_payment.chargeinvoiceid ");
 			buffer.append("left join apm_patient on apm_charges_payment.clientid=apm_patient.id ");
 			buffer.append("left join apm_invoice_type on apm_charges_invoice.itype=apm_invoice_type.id ");
@@ -2425,12 +2441,15 @@ public class JDBCSummaryReportDAO extends JDBCBaseDAO implements SummaryReportDA
 			if(!itype.equals("0")){
 				buffer.append("and itype='"+itype+"' ");
 			}
+			buffer.append("group by invoiced ");
 			PreparedStatement preparedStatement = connection.prepareStatement(buffer.toString());
 			ResultSet rs = preparedStatement.executeQuery();
 			double tot = 0;
 			while (rs.next()) {
 				Accounts accounts = new Accounts();
-				accounts.setId(rs.getInt(1));
+				accounts.setMasterchargetype(rs.getString(1));
+				accounts.setInvoiceids(rs.getString(2));
+				/*accounts.setId(rs.getInt(1));
 				accounts.setInvoiceid(rs.getInt(2));
 				accounts.setIpdopdseq(String.valueOf(accountsDAO.getIpdOpdSeqNo(rs.getInt(2))));
 				String invoicedate="";
@@ -2448,11 +2467,22 @@ public class JDBCSummaryReportDAO extends JDBCBaseDAO implements SummaryReportDA
 				accounts.setUserid(rs.getString(6));
 				accounts.setClientid(rs.getInt(7));
 				accounts.setItype(rs.getString(8));
-				accounts.setMasterchargetype(rs.getString(9));
+				accounts.setMasterchargetype(rs.getString(1));
 				Client client = clientDAO.getClientDetails(rs.getString(7));
 				accounts.setClientName(client.getTitle() + " " + client.getFirstName() +" " + client.getLastName());
-				accounts.setAbrivationid(client.getAbrivationid());
+				accounts.setAbrivationid(client.getAbrivationid());*/
 //				accounts.setPhysical_payment_id(processingDAO.getPhysicalpaymentId(rs.getString(1)));
+				
+				//ArrayList<Accounts>masterAssessmentList=new ArrayList<Accounts>();
+				//masterAssessmentList =getChargesNameData(accounts.getInvoiceid(),fromdate,todate);
+				Accounts payamt=getpaymentbyinvoiceid(accounts.getInvoiceids());
+				
+				accounts.setDate(payamt.getDate());
+				accounts.setAmountx(Double.toString(payamt.getAmount()));
+				accounts.setClientName(rs.getString(3));
+				accounts.setPaymentmode(payamt.getPaymentmode());
+				tot = tot + payamt.getAmount();
+				accounts.setTotalamt(String.valueOf(tot));
 				arrayList.add(accounts);
 			}
 		} catch (Exception e) {
@@ -2462,6 +2492,117 @@ public class JDBCSummaryReportDAO extends JDBCBaseDAO implements SummaryReportDA
 	}
 
 	
+
+	private Accounts getpaymentbyinvoiceid(String invoiceid) {
+		PreparedStatement preparedStatement = null;
+		Accounts accounts = new Accounts();
+		
+		String sql = "select payment,paymode,date from apm_charges_payment where chargeinvoiceid = "+invoiceid+"   ";
+		
+		try{
+			preparedStatement = connection.prepareStatement(sql);
+			ResultSet rs = preparedStatement.executeQuery();
+			
+			double totalamt=0;
+			while (rs.next()) {
+				
+				accounts.setAmount(rs.getDouble(1));
+				accounts.setPaymentmode(rs.getString(2));
+				accounts.setDate((rs.getString(3)));
+				
+				totalamt=totalamt+accounts.getAmount();
+				
+				accounts.setAmount(totalamt);
+		        
+				
+			}
+			
+		}catch (Exception e) {
+			// TODO: handle exception
+		}
+		return accounts;
+		
+	}
+
+	private ArrayList<Accounts> getChargesNameData(int invoiceid, String fromdate, String todate) {
+		StringBuffer sql = new StringBuffer();
+		PreparedStatement preparedStatement = null;
+		ArrayList<Accounts>list = new ArrayList<Accounts>();
+		/*
+		 * sql.
+		 * append("SELECT apmtType,charge,apm_invoice.practitionerName,apm_invoice.practitionerId,paybuy,apmt_charge_type,apm_invoice.id,apm_invoice_assesments.commencing,apm_invoice.appointmentid,apm_invoice_assesments.id,apm_invoice_assesments.chargeid,apm_invoice_assesments.std_charge_id,apm_invoice_assesments.ipdid,apm_invoice.ginvstid,unitcharge,chargedisc,user "
+		 * ); sql.append("FROM apm_invoice inner join apm_invoice_assesments on ");
+		 * sql.append("apm_invoice_assesments.invoiceid = apm_invoice.id  ");
+		 * sql.append("where  masterchargetype = '"
+		 * +masterchargetype+"' and apm_invoice_assesments.commencing between '"
+		 * +fromDate+"' AND '"+toDate+"'  ");
+		 */
+		
+		
+		sql.append("SELECT apmtType,(charge*quantity),apm_invoice_assesments.practitionerName,apm_invoice_assesments.practitionerId,paybuy, ");
+		sql.append("apm_invoice_assesments.chargeid,apm_invoice_assesments.std_charge_id,apm_invoice_assesments.ipdid,apm_invoice_assesments.commencing,apm_invoice_assesments.id,");
+		sql.append("unitcharge,chargedisc,apm_invoice_assesments.user,practid FROM apm_charges_invoice inner join apm_invoice_assesments on apm_invoice_assesments.invoiced = apm_charges_invoice.id ");
+		//sql.append("where  masterchargetype = '"+masterchargetype+"' and apm_invoice_assesments.commencing between '"+fromdate+"' AND '"+toDate+"'  and itype='1' ");
+		
+          
+		try{
+			preparedStatement = connection.prepareStatement(sql.toString());
+			ResultSet rs = preparedStatement.executeQuery();
+			double totalchargeamt=0;
+			while(rs.next()){
+				String tpid="";
+				String apptName = rs.getString(1);
+				String  sectionroom = "";
+				ThirdParty thirdParty =new ThirdParty();
+				
+				String charge ="";
+				
+				charge= rs.getString(2);
+			
+				
+				
+				Accounts accounts = new Accounts();
+				
+				
+			
+				
+				
+				accounts.setClientName(rs.getString(13));				
+				accounts.setAppointmentType(rs.getString(1));			
+				//accounts.setPayBy(payby);
+				
+				totalchargeamt=totalchargeamt+Double.parseDouble(charge);
+				
+				accounts.setTotalunitCharge(totalchargeamt);
+			
+				
+				double unitcharge = rs.getDouble(2);
+				double chargedisc = rs.getDouble(12);
+				
+				if(unitcharge==0){
+					unitcharge = rs.getDouble(2);
+				}
+				accounts.setUnitcharge(DateTimeUtils.changeFormat(unitcharge));
+				accounts.setChargedisc(DateTimeUtils.changeFormat(chargedisc));
+				
+				accounts.setIpdid(""+rs.getInt(14));
+				
+				
+
+
+
+				
+				list.add(accounts);
+			}
+			
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return list;
+		
+		
+	}
+		
 
 	public ArrayList<String> getPaymentreceiveUserid(String fromdate, String todate) {
 		ArrayList<String> arrayList = new ArrayList<String>();

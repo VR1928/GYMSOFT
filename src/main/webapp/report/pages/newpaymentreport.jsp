@@ -162,7 +162,7 @@
 					   		<tr>
 					     		<td><%=++i %></td>
 								<td>
-								<s:property value="invoiceid"/>
+								<s:property value="invoiceids"/>
 								</td>
 								
 								<td><s:property value="date"/></td>
